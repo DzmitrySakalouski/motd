@@ -35,3 +35,11 @@ export const getCast = async (movieId) => {
 export const getRecommendedMovies = async (id) => {
     return await axiosInstance.get(`/movie/${id}/recommendations`);
 }
+
+export const buildTrailerUrl = (video) => {
+    if (video.site == 'YouTube') {
+        return `https://www.youtube.com/watch?v=${video.key}`
+    }
+
+    return null;
+}

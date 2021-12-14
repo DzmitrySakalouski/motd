@@ -2,7 +2,7 @@ import React, { useMemo } from 'react'
 import { Image, StyleSheet, View } from 'react-native';
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import { SharedElement } from 'react-navigation-shared-element';
-import { getCast, getMovieImage, getRecommendedMovies } from '../../services/mainMovieService/main_movie.service';
+import { buildTrailerUrl, getCast, getMovieImage, getRecommendedMovies } from '../../services/mainMovieService/main_movie.service';
 import { InfoSectionComponent } from './components/InfoSectionComponent';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { COLORS } from '../../contants';
@@ -11,6 +11,7 @@ import { HorizontalCarousel } from '../components/HorizontalCarousel';
 import { useQuery } from 'react-query';
 import { MovieCaroucelItem } from '../components/MovieCaroucelItem';
 import { CrewCarouselItem } from '../components/CrewCarouselItem';
+import InAppBrowser from 'react-native-inappbrowser-reborn';
 
 const styles = StyleSheet.create({
     frontImageStyle: {
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
 
 const YouTubeButton = ({onPress}) => {
     return (
-        <TouchableOpacity onPress={() => console.log("HELLO")}>
+        <TouchableOpacity onPress={onPress}>
             <ElementsIcon size={100} name="play-circle-filled" color={COLORS.RED} />
         </TouchableOpacity>
     );
@@ -72,7 +73,23 @@ export const MovieDetailsScreen = ({route}) => {
         borderRadius: withTiming(borderRadiusValue.value, {duration: 10000}),
     }));
 
-    console.log("========>>>> ", recommendedData?.results?.length);
+    const openTrailer = async () => {
+        const url = buildTrailerUrl(movie.video);
+        console.log('----------', url);
+        if (url) {
+            await InAppBrowser.open(url, {
+                dismissButtonStyle: 'cancel',
+                preferredBarTintColor: COLORS.BACKGROUND_PRIMARY,
+                preferredControlTintColor: COLORS.PRIMARY,
+                readerMode: false,
+                animated: true,
+                modalPresentationStyle: 'fullScreen',
+                modalTransitionStyle: 'coverVertical',
+                modalEnabled: true,
+                enableBarCollapsing: false,
+            });
+        }
+    }
 
     return (
         <ScrollView bounces={false} contentContainerStyle={styles.container}>
@@ -82,7 +99,7 @@ export const MovieDetailsScreen = ({route}) => {
                     <SharedElement id="movie_poster_main">
                         <Animated.Image pointerEvents="none" source={{uri: movieImage}} style={[styles.frontImageStyle, imageAnimationStyles]} />
                     </SharedElement>
-                    <YouTubeButton />
+                    <YouTubeButton onPress={openTrailer} />
                 </View>
             </View>
             <View style={styles.mainSection}>
