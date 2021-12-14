@@ -1,9 +1,10 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { AppNavigation } from './navigation/AppNavigation';
+// import { AppNavigation } from './navigation/AppNavigation';
 import React, { useEffect } from 'react';
 import configureAxios from './utils/axios.util';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { HomeDrawerNavigator } from './navigation/HomeNavigator';
 
 const queryClient = new QueryClient();
 
@@ -13,7 +14,7 @@ const App = () => {
     <SafeAreaProvider>
       <QueryClientProvider client={queryClient}>
         <NavigationContainer>
-          <AppNavigation />
+          <HomeDrawerNavigator />
         </NavigationContainer>
       </QueryClientProvider>
     </SafeAreaProvider>
