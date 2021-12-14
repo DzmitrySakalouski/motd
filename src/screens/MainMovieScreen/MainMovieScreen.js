@@ -5,8 +5,8 @@ import { View, Text, ImageBackground, StyleSheet } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 import { SharedElement } from 'react-navigation-shared-element';
-import { getMovieImage } from '../../services/mainMovieService/main_movie.service';
-import { useMainMovieFetch } from '../../utils/main_movie.util';
+import { useQuery } from 'react-query';
+import { configureMainMovie, getMovieImage } from '../../services/mainMovieService/main_movie.service';
 
 const styles = StyleSheet.create({
     container: {
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
 });
 
 export const MainMovieScreen = () => {
-    const {isLoading, isError, movieData} = useMainMovieFetch();
+    const {isLoading, isError, data: movieData} = useQuery('primary_movie', configureMainMovie);
     const {navigate} = useNavigation();
 
     const handleNavigateToDetails = useCallback(() => {
