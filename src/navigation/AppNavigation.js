@@ -14,7 +14,8 @@ const appScreenOptions = {
 };
 
 const detailsRouteOptions = {
-    headerLeft: () => null
+    headerLeft: () => null,
+    gestureEnabled: false
 };
 
 export const AppNavigation = () => {
