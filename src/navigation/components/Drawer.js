@@ -12,12 +12,10 @@ const styles = StyleSheet.create({
         paddingTop: 40,
         paddingHorizontal: 16,
         flex: 1,
-        justifyContent: 'space-between'
     },
     text: {
         color: COLORS.PRIMARY,
         fontFamily: 'Bebas Neue',
-        
     },
     header: {
         fontSize: 40,
@@ -33,10 +31,12 @@ const styles = StyleSheet.create({
     },
     switchContainer: {
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'flex-end',
+        flexGrow: 1,
+        flex: 1,
     },
     primaryMenu: {
-        // marginTop: 50,
+        marginTop: 50,
     },
     smallImg: {
         width: 60,
