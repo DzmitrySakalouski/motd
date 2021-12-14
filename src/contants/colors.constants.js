@@ -1,0 +1,8 @@
+export const COLORS = {
+    BACKGROUND_PRIMARY: '#0F111D',
+    BACKGROUND_SECONDARY: '#292B37',
+    PRIMARY: 'white',
+    SECONDARY: '#5A5D65',
+    GOLD: '#F7DA2B',
+    RED: '#E82627',
+}
