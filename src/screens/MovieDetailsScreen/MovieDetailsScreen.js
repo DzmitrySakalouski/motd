@@ -58,7 +58,6 @@ const YouTubeButton = ({onPress}) => {
 export const MovieDetailsScreen = ({route}) => {
     const {movie} = route.params
     const movieImage = useMemo(() => getMovieImage(movie?.poster_path), [movie]);
-    const backdropImage = useMemo(() => getMovieImage(movie?.backdrop_path), [movie]);
     const {
         data: recommendedData, 
         isLoading: isLoadingRecommended
@@ -75,7 +74,6 @@ export const MovieDetailsScreen = ({route}) => {
 
     const openTrailer = async () => {
         const url = buildTrailerUrl(movie.video);
-        console.log('----------', url);
         if (url) {
             await InAppBrowser.open(url, {
                 dismissButtonStyle: 'cancel',

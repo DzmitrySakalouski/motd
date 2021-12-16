@@ -4,6 +4,29 @@ import { axiosInstance } from "../../utils/axios.util"
 export const configureMainMovie = async () => {
     const totalDataResponse = await axiosInstance.get('/movie/popular');
     if (totalDataResponse?.total_pages) {
+        const randomPage = Math.floor(Math.random() * totalDataResponse.total_pages -1);
+
+        const randomPageMovies = await axiosInstance.get('/movie/popular', {params: {page: randomPage}});
+
+        if (randomPageMovies?.results?.length) {
+            const randomMovieIndexFromRange = Math.floor(Math.random() * randomPageMovies.results.length);
+            const movieToDisplay = randomPageMovies.results[randomMovieIndexFromRange];
+            const video = await axiosInstance.get(`/movie/${movieToDisplay.id}/videos`);
+            const movie = await getMovieDetails(movieToDisplay.id);
+            movie['video'] = video.results[0];
+            console.log('MOVIE ===> ', movie);
+            return movie;
+        }
+    }
+}
+
+const fetchCurrentMovie = async () => {
+
+}
+
+const fetchNewMovie = async () => {
+    const totalDataResponse = await axiosInstance.get('/movie/popular');
+    if (totalDataResponse?.total_pages) {
         const randomPage = Math.floor(Math.random() * totalDataResponse.total_pages);
 
         const randomPageMovies = await axiosInstance.get('/movie/popular', {params: {page: randomPage}});
