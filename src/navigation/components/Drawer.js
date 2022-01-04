@@ -4,12 +4,12 @@ import {View, Text, StyleSheet, Image} from 'react-native'
 import { Switch, Icon } from 'react-native-elements'
 import { useQuery } from 'react-query'
 import { COLORS } from '../../contants'
-import { getMovieImage } from '../../services/mainMovieService/main_movie.service'
+import { configureMainMovie, getMovieImage } from '../../services/mainMovieService/main_movie.service'
 
 const styles = StyleSheet.create({
     container: {
         position:'absolute', top: 0, left: 0, right: 0, bottom: 0,
-        paddingTop: 40,
+        paddingTop: 60,
         paddingHorizontal: 16,
         flex: 1,
     },
@@ -54,8 +54,9 @@ const styles = StyleSheet.create({
     }
 })
 
-export const Drawer = props => {
+export const Drawer = () => {
     const {data: movie} = useQuery('primary_movie');
+
     return (
         <BlurView
             style={styles.container}

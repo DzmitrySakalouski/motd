@@ -2,7 +2,7 @@ import React, { useMemo } from 'react'
 import { Image, StyleSheet, View } from 'react-native';
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import { SharedElement } from 'react-navigation-shared-element';
-import { buildTrailerUrl, getCast, getMovieImage, getRecommendedMovies } from '../../services/mainMovieService/main_movie.service';
+import { buildTrailerUrl, configureMainMovie, getCast, getMovieImage, getRecommendedMovies } from '../../services/mainMovieService/main_movie.service';
 import { InfoSectionComponent } from './components/InfoSectionComponent';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { COLORS } from '../../contants';
@@ -55,8 +55,8 @@ const YouTubeButton = ({onPress}) => {
     );
 };
 
-export const MovieDetailsScreen = ({route}) => {
-    const {movie} = route.params
+export const MovieDetailsScreen = () => {
+    const {data: movie} = useQuery('primary_movie', {enabled: false});
     const movieImage = useMemo(() => getMovieImage(movie?.poster_path), [movie]);
     const {
         data: recommendedData, 

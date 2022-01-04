@@ -10,6 +10,7 @@ const styles = StyleSheet.create({
         width: '100%',
         marginTop: 20,
         height: 280,
+        marginBottom: 20,
     },
     text: {
         color: COLORS.PRIMARY,
