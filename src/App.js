@@ -1,7 +1,7 @@
+import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-// import { AppNavigation } from './navigation/AppNavigation';
-import React, { useEffect } from 'react';
+import admob from '@invertase/react-native-google-ads';
 import configureAxios from './utils/axios.util';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { HomeDrawerNavigator } from './navigation/HomeNavigator';
@@ -9,7 +9,11 @@ import { HomeDrawerNavigator } from './navigation/HomeNavigator';
 const queryClient = new QueryClient();
 
 const App = () => {
-  useEffect(() => configureAxios(), []);
+  useEffect(() => {
+    configureAxios();
+    admob().initialize().then(adapterStatuses => console.log("ads => ", adapterStatuses));
+  }, []);
+
   return (
     <SafeAreaProvider>
       <QueryClientProvider client={queryClient}>

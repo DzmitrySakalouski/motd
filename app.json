@@ -1,4 +1,7 @@
 {
   "name": "motdapp",
-  "displayName": "motdapp"
+  "displayName": "motdapp",
+  "react-native-google-ads": {
+    "ios_app_id": "ca-app-pub-1471895295431954~1608179302"
+  }
 }

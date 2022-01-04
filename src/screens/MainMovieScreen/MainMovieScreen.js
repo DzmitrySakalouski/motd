@@ -9,6 +9,7 @@ import { SharedElement } from 'react-navigation-shared-element';
 import { useQuery } from 'react-query';
 import { COLORS } from '../../contants';
 import { configureMainMovie, getMovieImage } from '../../services/mainMovieService/main_movie.service';
+import { BannerAd, BannerAdSize, TestIds } from '@invertase/react-native-google-ads';
 
 const styles = StyleSheet.create({
     container: {
@@ -35,6 +36,13 @@ const styles = StyleSheet.create({
     errorText: {
         color: 'red', fontSize: 22
     },
+    banner: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        width: '100%'
+    }
 });
 
 export const MainMovieScreen = () => {
@@ -69,6 +77,7 @@ export const MainMovieScreen = () => {
     }
 
     return (
+        <>
         <ImageBackground
             source={{uri: getMovieImage(movieData?.poster_path)}} 
             style={styles.container}
@@ -92,5 +101,9 @@ export const MainMovieScreen = () => {
                 </View>
             </TouchableOpacity>
         </ImageBackground>
+        <View style={styles.banner}>
+            <BannerAd unitId={TestIds.BANNER} size={BannerAdSize.ADAPTIVE_BANNER} />
+        </View>
+        </>
     )
 };

@@ -1084,6 +1084,11 @@
   "resolved" "https://registry.npmjs.org/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz"
   "version" "1.2.1"
 
+"@invertase/react-native-google-ads@^3.4.0":
+  "integrity" "sha512-Z1k6oxr5kc4g63V2kdfSpAcEGHPzQ12s82jMv7NYhHrg4JOrUVMM+LrvpYLTg15qon5ReU8L2dPc1q2s0O5+ZQ=="
+  "resolved" "https://registry.npmjs.org/@invertase/react-native-google-ads/-/react-native-google-ads-3.4.0.tgz"
+  "version" "3.4.0"
+
 "@istanbuljs/load-nyc-config@^1.0.0":
   "integrity" "sha512-VjeHSlIzpv/NyD3N0YuHfXOPDIixcA1q2ZV98wsMqcYlPmv2n3Yb2lYP9XMElnaFVXg5A7YLTeLu6V84uQDjmQ=="
   "resolved" "https://registry.npmjs.org/@istanbuljs/load-nyc-config/-/load-nyc-config-1.1.0.tgz"
@@ -6187,6 +6192,11 @@
     "flow-parser" "^0.121.0"
     "jscodeshift" "^0.11.0"
     "nullthrows" "^1.1.1"
+
+"react-native-config@^1.4.5":
+  "integrity" "sha512-5oiAsoW88SOYDg/0cleJ2vJDqv98FJUbFQYEnH4sdMtEn3AAT3lb7BkTGW8HO/t3Vk9VOruwxUUnO4tzuxzCsw=="
+  "resolved" "https://registry.npmjs.org/react-native-config/-/react-native-config-1.4.5.tgz"
+  "version" "1.4.5"
 
 "react-native-elements@^3.4.2":
   "integrity" "sha512-m0eAWOn7JuR1wNTNY0WHuaqst4LI/gFE4N5Bbyfsc4DiryWsMST7aAg5w/Gos4IexWIzhLKCIkPxthND1m/8Xg=="
