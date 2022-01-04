@@ -12,6 +12,7 @@ import { useQuery } from 'react-query';
 import { MovieCaroucelItem } from '../components/MovieCaroucelItem';
 import { CrewCarouselItem } from '../components/CrewCarouselItem';
 import InAppBrowser from 'react-native-inappbrowser-reborn';
+import Config from 'react-native-config';
 
 const styles = StyleSheet.create({
     frontImageStyle: {
@@ -71,6 +72,8 @@ export const MovieDetailsScreen = () => {
     const imageAnimationStyles = useAnimatedStyle(() => ({
         borderRadius: withTiming(borderRadiusValue.value, {duration: 10000}),
     }));
+
+    console.log('Config: ', Config.ENVIRONMENT);
 
     const openTrailer = async () => {
         const url = buildTrailerUrl(movie.video);

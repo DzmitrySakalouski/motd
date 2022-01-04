@@ -10,6 +10,7 @@ import { useQuery } from 'react-query';
 import { COLORS } from '../../contants';
 import { configureMainMovie, getMovieImage } from '../../services/mainMovieService/main_movie.service';
 import { BannerAd, BannerAdSize, TestIds } from '@invertase/react-native-google-ads';
+import Config from 'react-native-config';
 
 const styles = StyleSheet.create({
     container: {
@@ -76,6 +77,8 @@ export const MainMovieScreen = () => {
         );
     }
 
+    console.log(TestIds.BANNER);
+
     return (
         <>
         <ImageBackground
@@ -102,7 +105,7 @@ export const MainMovieScreen = () => {
             </TouchableOpacity>
         </ImageBackground>
         <View style={styles.banner}>
-            <BannerAd unitId={TestIds.BANNER} size={BannerAdSize.ADAPTIVE_BANNER} />
+            <BannerAd unitId={Config.BOTTOM_BANNER} size={BannerAdSize.ADAPTIVE_BANNER} />
         </View>
         </>
     )
