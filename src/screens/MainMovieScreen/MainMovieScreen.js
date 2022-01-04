@@ -4,10 +4,10 @@ import React, {useCallback} from 'react'
 import { View, Text, ImageBackground, StyleSheet } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { BallIndicator } from 'react-native-indicators';
-import { DotIndicator } from 'react-native-indicators';
 import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 import { SharedElement } from 'react-navigation-shared-element';
 import { useQuery } from 'react-query';
+import { COLORS } from '../../contants';
 import { configureMainMovie, getMovieImage } from '../../services/mainMovieService/main_movie.service';
 
 const styles = StyleSheet.create({
@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: '100%',
         height: '100%',
+        backgroundColor: COLORS.BACKGROUND_PRIMARY,
     },
     button: {
         borderColor: 'white',
@@ -54,7 +55,7 @@ export const MainMovieScreen = () => {
     if (isLoading) {
         return (
             <View style={styles.container}>
-                <BallIndicator size={50} color='black' />
+                <BallIndicator size={50} color='white' />
             </View>
         );
     }
