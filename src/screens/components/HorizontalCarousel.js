@@ -43,7 +43,7 @@ export const HorizontalCarousel = ({title, items, onItemPress, isLoading, Carouc
                 <View style={styles.innerViewContainer}>
                     {
                     isLoading ? <Text style={styles.text}>...is loading</Text> :
-                    <ScrollView horizontal>
+                    <ScrollView horizontal style={{width: '100%'}}>
                     {
                         items.map(movieItem => 
                             <CaroucelItem 

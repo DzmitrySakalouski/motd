@@ -51,7 +51,7 @@ export const MainMovieScreen = () => {
         };
     });
 
-    if (true) {
+    if (isLoading) {
         return (
             <View style={styles.container}>
                 <BallIndicator size={50} color='black' />

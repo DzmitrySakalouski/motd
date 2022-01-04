@@ -90,10 +90,6 @@ export const Drawer = props => {
                     <Text style={[styles.text, styles.menuItem]}>About</Text>
                 </View>
             </View>
-            <View style={[styles.switchContainer, {marginBottom: 30}]}>
-                <Text style={[styles.text, {fontSize: 20, paddingRight: 10,}]}>Enable light theme: </Text>
-                <Switch />
-            </View>
         </BlurView>  
     )
 }
