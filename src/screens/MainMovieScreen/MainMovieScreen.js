@@ -3,6 +3,8 @@ import { useNavigation } from '@react-navigation/core';
 import React, {useCallback} from 'react'
 import { View, Text, ImageBackground, StyleSheet } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { BallIndicator } from 'react-native-indicators';
+import { DotIndicator } from 'react-native-indicators';
 import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 import { SharedElement } from 'react-navigation-shared-element';
 import { useQuery } from 'react-query';
@@ -28,7 +30,10 @@ const styles = StyleSheet.create({
         textTransform: 'uppercase',
         fontFamily: 'Bebas Neue',
         fontSize: 23,
-    }
+    },
+    errorText: {
+        color: 'red', fontSize: 22
+    },
 });
 
 export const MainMovieScreen = () => {
@@ -46,10 +51,10 @@ export const MainMovieScreen = () => {
         };
     });
 
-    if (isLoading) {
+    if (true) {
         return (
             <View style={styles.container}>
-                <Text>...Loading</Text>
+                <BallIndicator size={50} color='black' />
             </View>
         );
     }
@@ -57,7 +62,7 @@ export const MainMovieScreen = () => {
     if (isError) {
         return (
             <View style={styles.container}>
-                <Text style={{color: 'red', fontSize: 50}}>...Loading</Text>
+                <Text style={styles.errorText}>An error occured</Text>
             </View>
         );
     }

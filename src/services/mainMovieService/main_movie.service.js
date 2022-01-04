@@ -2,45 +2,41 @@ import { IMAGE_BASE_URL } from "../../contants";
 import { axiosInstance } from "../../utils/axios.util"
 
 export const configureMainMovie = async () => {
-    const totalDataResponse = await axiosInstance.get('/movie/popular');
-    if (totalDataResponse?.total_pages) {
-        const randomPage = Math.floor(Math.random() * totalDataResponse.total_pages -1);
+    const randomPage = Math.floor(Math.random() * 500);
 
-        const randomPageMovies = await axiosInstance.get('/movie/popular', {params: {page: randomPage}});
-
-        if (randomPageMovies?.results?.length) {
-            const randomMovieIndexFromRange = Math.floor(Math.random() * randomPageMovies.results.length);
-            const movieToDisplay = randomPageMovies.results[randomMovieIndexFromRange];
-            const video = await axiosInstance.get(`/movie/${movieToDisplay.id}/videos`);
-            const movie = await getMovieDetails(movieToDisplay.id);
-            movie['video'] = video.results[0];
-            console.log('MOVIE ===> ', movie);
-            return movie;
-        }
+    const randomPageMovies = await axiosInstance.get('/movie/popular', {params: {page: randomPage}});
+    
+    if (randomPageMovies?.results?.length) {
+        const randomMovieIndexFromRange = Math.floor(Math.random() * randomPageMovies.results.length);
+        const movieToDisplay = randomPageMovies.results[randomMovieIndexFromRange];
+        const video = await axiosInstance.get(`/movie/${movieToDisplay.id}/videos`);
+        const movie = await getMovieDetails(movieToDisplay.id);
+        movie['video'] = video.results[0];
+        return movie;
     }
+        
+    return null;
 }
 
-const fetchCurrentMovie = async () => {
-
+const fetchSavedMovie = async () => {
+    
 }
 
 const fetchNewMovie = async () => {
-    const totalDataResponse = await axiosInstance.get('/movie/popular');
-    if (totalDataResponse?.total_pages) {
-        const randomPage = Math.floor(Math.random() * totalDataResponse.total_pages);
+    const randomPage = Math.floor(Math.random() * 500);
 
-        const randomPageMovies = await axiosInstance.get('/movie/popular', {params: {page: randomPage}});
-
-        if (randomPageMovies?.results?.length) {
-            const randomMovieIndexFromRange = Math.floor(Math.random() * randomPageMovies.results.length);
-            const movieToDisplay = randomPageMovies.results[randomMovieIndexFromRange];
-            const video = await axiosInstance.get(`/movie/${movieToDisplay.id}/videos`);
-            const movie = await getMovieDetails(movieToDisplay.id);
-            movie['video'] = video.results[0];
-            console.log('MOVIE ===> ', movie);
-            return movie;
-        }
+    const randomPageMovies = await axiosInstance.get('/movie/popular', {params: {page: randomPage}});
+    
+    if (randomPageMovies?.results?.length) {
+        const randomMovieIndexFromRange = Math.floor(Math.random() * randomPageMovies.results.length);
+        const movieToDisplay = randomPageMovies.results[randomMovieIndexFromRange];
+        const video = await axiosInstance.get(`/movie/${movieToDisplay.id}/videos`);
+        const movie = await getMovieDetails(movieToDisplay.id);
+        movie['video'] = video.results[0];
+        return movie;
     }
+        
+    return null;
 }
 
 const getMovieDetails = async (id) => {
