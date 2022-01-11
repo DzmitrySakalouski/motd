@@ -73,8 +73,6 @@ export const MovieDetailsScreen = () => {
         borderRadius: withTiming(borderRadiusValue.value, {duration: 10000}),
     }));
 
-    console.log('Config: ', Config.ENVIRONMENT);
-
     const openTrailer = async () => {
         const url = buildTrailerUrl(movie.video);
         if (url) {

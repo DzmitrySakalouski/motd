@@ -4,6 +4,7 @@ import {AboutScreen, AdsSettingsScreen} from '../screens';
 import {AppNavigation} from './AppNavigation';
 import { COLORS } from '../contants';
 import { Drawer } from './components/Drawer';
+import { ReloadButton } from './components/ReloadHeaderButton';
 
 const HomeDrawer = createDrawerNavigator();
 
@@ -15,7 +16,8 @@ const screenOptions = {
     drawerStyle: {
         backgroundColor: 'transparent',
         width: '100%'
-    }
+    },
+    headerRight: () => <ReloadButton name="add" color="white" />
 }
 
 export const HomeDrawerNavigator = () => (

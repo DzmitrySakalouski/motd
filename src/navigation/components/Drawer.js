@@ -74,14 +74,7 @@ export const Drawer = () => {
                 <Image source={{uri: getMovieImage(movie?.poster_path)}} style={styles.smallImg} />
             </View>
             <View style={styles.primaryMenu}>
-                {/* <View style={styles.menuItemContainer}>
-                    <Icon name="search" color={COLORS.PRIMARY} />
-                    <Text style={[styles.text, styles.menuItem]}>Search configuration</Text>
-                </View>
-                <View style={styles.menuItemContainer}>
-                    <Icon name="theaters" color={COLORS.PRIMARY} />
-                    <Text style={[styles.text, styles.menuItem]}>In theatres</Text>
-                </View> */}
+                {/* TODO: custom search item */}
                 <View style={styles.menuItemContainer}>
                     <Icon name="ad-units" color={COLORS.PRIMARY} />
                     <Text style={[styles.text, styles.menuItem]}>Ads settings</Text>
