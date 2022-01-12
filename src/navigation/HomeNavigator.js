@@ -12,6 +12,9 @@ const screenOptions = {
     headerTransparent: true,
     headerTitle: () => null,
     headerTintColor: COLORS.PRIMARY,
+    headerStyle: {
+        marginTop: 10,
+    },
     drawerType: 'front',
     drawerStyle: {
         backgroundColor: 'transparent',
@@ -23,7 +26,7 @@ const screenOptions = {
 export const HomeDrawerNavigator = () => (
     <HomeDrawer.Navigator
         initialRouteName='Home' 
-        screenOptions={screenOptions}
+        screenOptions={{...screenOptions}}
         drawerContent={props => <Drawer {...props} />}>
         <HomeDrawer.Screen name="Home" component={AppNavigation} />
         <HomeDrawer.Screen name="About" component={AboutScreen} />

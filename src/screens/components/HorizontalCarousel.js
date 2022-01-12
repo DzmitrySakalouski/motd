@@ -29,11 +29,6 @@ const styles = StyleSheet.create({
 });
 
 export const HorizontalCarousel = ({title, items, onItemPress, isLoading, CaroucelItem}) => {
-
-    const handlePress = useCallback(id => {
-        onItemPress && onItemPress(id);
-    }, [items]);
-
     if (!items) {
         return null;
     }
@@ -50,7 +45,7 @@ export const HorizontalCarousel = ({title, items, onItemPress, isLoading, Carouc
                             <CaroucelItem 
                                 item={movieItem}
                                 key={movieItem.id}
-                                onPress={() => handlePress(movieItem.id)} />)
+                                onPress={() => onItemPress(movieItem.id)} />)
                     }
                     </ScrollView>
                     }

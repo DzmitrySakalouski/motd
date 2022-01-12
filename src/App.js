@@ -4,7 +4,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import admob from '@invertase/react-native-google-ads';
 import configureAxios from './utils/axios.util';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { HomeDrawerNavigator } from './navigation/HomeNavigator';
+import { RootNavigator } from './navigation/RootNavigation';
 
 const queryClient = new QueryClient();
 
@@ -18,7 +18,7 @@ const App = () => {
     <SafeAreaProvider>
       <QueryClientProvider client={queryClient}>
         <NavigationContainer>
-          <HomeDrawerNavigator />
+          <RootNavigator />
         </NavigationContainer>
       </QueryClientProvider>
     </SafeAreaProvider>

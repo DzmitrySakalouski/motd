@@ -2,7 +2,7 @@ import React, { useMemo } from 'react'
 import { Image, StyleSheet, View } from 'react-native';
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import { SharedElement } from 'react-navigation-shared-element';
-import { buildTrailerUrl, configureMainMovie, getCast, getMovieImage, getRecommendedMovies } from '../../services/mainMovieService/main_movie.service';
+import { buildTrailerUrl, getCast, getMovieImage, getRecommendedMovies } from '../../services/mainMovieService/main_movie.service';
 import { InfoSectionComponent } from './components/InfoSectionComponent';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { COLORS } from '../../contants';
@@ -14,6 +14,8 @@ import { CrewCarouselItem } from '../components/CrewCarouselItem';
 import InAppBrowser from 'react-native-inappbrowser-reborn';
 import Config from 'react-native-config';
 import { BallIndicator } from 'react-native-indicators';
+import { useNavigation } from '@react-navigation/native';
+import { RecomendedMovieDetailsModal } from '../components/RecomendedMovieDetailsModal'
 
 const styles = StyleSheet.create({
     frontImageStyle: {
@@ -67,6 +69,7 @@ const YouTubeButton = ({onPress}) => {
 
 export const MovieDetailsScreen = () => {
     const {data: movie, isFetching} = useQuery('primary_movie', { enabled: false });
+    const {navigate} = useNavigation();
     const movieImage = useMemo(() => getMovieImage(movie?.poster_path), [movie]);
     const {
         data: recommendedData, 
@@ -101,6 +104,9 @@ export const MovieDetailsScreen = () => {
 
     console.log('isLoading', isFetching);
 
+    const handlePressRecomended = (id) => {
+        navigate('RecomendedMovieDetails', {params: id});
+    }
 
     if (isFetching) {
         return (
@@ -134,7 +140,7 @@ export const MovieDetailsScreen = () => {
                     items={recommendedData?.results}
                     title="Recommended" 
                     isLoading={isLoadingRecommended}
-                    onItemPress={(id) => console.log(id, id)}
+                    onItemPress={(id) => handlePressRecomended(id, id)}
                     CaroucelItem={MovieCaroucelItem}
                 />
             </View>

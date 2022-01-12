@@ -1,5 +1,6 @@
 import React from 'react'
 import {View, Text, StyleSheet, Image, Pressable} from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { COLORS } from '../../contants';
 import { getMovieImage } from '../../services/mainMovieService/main_movie.service';
 
@@ -29,10 +30,10 @@ const styles = StyleSheet.create({
 });
 
 export const MovieCaroucelItem = ({item, onPress}) => (
-    <Pressable onPress={onPress}>
+    <TouchableOpacity onPress={onPress}>
         <View style={styles.itemContainer}>
             <Image source={{uri: getMovieImage(item.poster_path)}} style={styles.itemImage} />
             <Text style={[styles.text, styles.itemTitle]}>{item.title}</Text>
         </View>
-    </Pressable>
+    </TouchableOpacity>
 );
