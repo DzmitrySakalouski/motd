@@ -1,5 +1,7 @@
 import { IMAGE_BASE_URL } from "../../contants";
-import { axiosInstance } from "../../utils/axios.util"
+import { axiosInstance } from "../../utils/axios.util";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import moment from "moment";
 
 export const configureMainMovie = async () => {
     const randomPage = Math.floor(Math.random() * 500);
@@ -16,13 +18,42 @@ export const configureMainMovie = async () => {
     }
         
     return null;
+};
+
+export const presentMovie = async () => {
+    const currentDate = moment().format('MM_dd_YYYY');
+    const keys = await AsyncStorage.getAllKeys();
+
+    if (keys.includes(currentDate)) {
+        console.log('includes');
+        const movie = await fetchSavedMovie(currentDate);
+        console.log('includes', movie);
+        return movie;
+    }
+
+    return await updateMovie();
+};
+
+export const fetchSavedMovie = async (dateStringKey) => {
+    const savedMovie = await AsyncStorage.getItem(dateStringKey);
+
+    return JSON.parse(savedMovie);
+};
+
+export const saveNewMovie = async (movie) => {
+    const currentDate = moment().format('MM_dd_YYYY');
+    const movieString = JSON.stringify(movie);
+    return await AsyncStorage.setItem(currentDate, movieString);
 }
 
-const fetchSavedMovie = async () => {
-    
+export const updateMovie = async () => {
+    console.log('UPDATE');
+    const movie = await fetchMovie();
+    await saveNewMovie(movie);
+    return movie;
 }
 
-const fetchNewMovie = async () => {
+export const fetchMovie = async () => {
     const randomPage = Math.floor(Math.random() * 500);
 
     const randomPageMovies = await axiosInstance.get('/movie/popular', {params: {page: randomPage}});
@@ -33,6 +64,7 @@ const fetchNewMovie = async () => {
         const video = await axiosInstance.get(`/movie/${movieToDisplay.id}/videos`);
         const movie = await getMovieDetails(movieToDisplay.id);
         movie['video'] = video.results[0];
+
         return movie;
     }
         

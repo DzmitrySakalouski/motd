@@ -13,11 +13,20 @@ import { MovieCaroucelItem } from '../components/MovieCaroucelItem';
 import { CrewCarouselItem } from '../components/CrewCarouselItem';
 import InAppBrowser from 'react-native-inappbrowser-reborn';
 import Config from 'react-native-config';
+import { BallIndicator } from 'react-native-indicators';
 
 const styles = StyleSheet.create({
     frontImageStyle: {
         width: 195, 
         height: 314,
+    },
+    loaderContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+        height: '100%',
+        backgroundColor: COLORS.BACKGROUND_PRIMARY,
     },
     frontImageStyleContainer: {
         position: 'absolute',
@@ -57,7 +66,7 @@ const YouTubeButton = ({onPress}) => {
 };
 
 export const MovieDetailsScreen = () => {
-    const {data: movie} = useQuery('primary_movie', {enabled: false});
+    const {data: movie, isFetching} = useQuery('primary_movie', { enabled: false });
     const movieImage = useMemo(() => getMovieImage(movie?.poster_path), [movie]);
     const {
         data: recommendedData, 
@@ -88,6 +97,17 @@ export const MovieDetailsScreen = () => {
                 enableBarCollapsing: false,
             });
         }
+    }
+
+    console.log('isLoading', isFetching);
+
+
+    if (isFetching) {
+        return (
+            <View style={styles.loaderContainer}>
+                <BallIndicator size={50} color='white' />
+            </View>
+        );
     }
 
     return (

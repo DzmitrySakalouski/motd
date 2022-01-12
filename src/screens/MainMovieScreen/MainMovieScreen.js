@@ -1,6 +1,6 @@
 import { BlurView } from '@react-native-community/blur';
 import { useNavigation } from '@react-navigation/core';
-import React, {useCallback} from 'react'
+import React, {useCallback, useEffect} from 'react'
 import { View, Text, ImageBackground, StyleSheet } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { BallIndicator } from 'react-native-indicators';
@@ -8,7 +8,7 @@ import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 import { SharedElement } from 'react-navigation-shared-element';
 import { useQuery } from 'react-query';
 import { COLORS } from '../../contants';
-import { configureMainMovie, getMovieImage } from '../../services/mainMovieService/main_movie.service';
+import { configureMainMovie, getMovieImage, presentMovie } from '../../services/mainMovieService/main_movie.service';
 import { BannerAd, BannerAdSize, TestIds } from '@invertase/react-native-google-ads';
 import Config from 'react-native-config';
 
@@ -47,12 +47,16 @@ const styles = StyleSheet.create({
 });
 
 export const MainMovieScreen = () => {
-    const {isLoading, isError, data: movieData} = useQuery('primary_movie', configureMainMovie);
+    const {isFetching, isError, data: movieData} = useQuery('primary_movie', presentMovie);
     const {navigate} = useNavigation();
 
     const handleNavigateToDetails = useCallback(() => {
         navigate('MovieDetailsScreen', {movie: movieData})
     }, [movieData]);
+
+    useEffect(() => {
+        presentMovie();
+    }, []);
 
     const animatedImageStyle = useAnimatedStyle(() => {
         return {
@@ -61,7 +65,7 @@ export const MainMovieScreen = () => {
         };
     });
 
-    if (isLoading) {
+    if (isFetching) {
         return (
             <View style={styles.container}>
                 <BallIndicator size={50} color='white' />
@@ -76,8 +80,6 @@ export const MainMovieScreen = () => {
             </View>
         );
     }
-
-    console.log(TestIds.BANNER);
 
     return (
         <>

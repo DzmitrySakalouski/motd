@@ -6109,14 +6109,14 @@
     "kleur" "^3.0.3"
     "sisteransi" "^1.0.5"
 
-"prop-types@^15.5.10", "prop-types@^15.7.2":
-  "integrity" "sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ=="
-  "resolved" "https://registry.npmjs.org/prop-types/-/prop-types-15.7.2.tgz"
-  "version" "15.7.2"
+"prop-types@^15.5.10", "prop-types@^15.7.2", "prop-types@^15.8.0":
+  "integrity" "sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg=="
+  "resolved" "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
+  "version" "15.8.1"
   dependencies:
     "loose-envify" "^1.4.0"
     "object-assign" "^4.1.1"
-    "react-is" "^16.8.1"
+    "react-is" "^16.13.1"
 
 "psl@^1.1.33":
   "integrity" "sha512-RIdOzyoavK+hA18OGGWDqUTsCLhtA7IcZ/6NCs4fFJaHBDab+pDDmDIByWFRQJq2Cd7r1OoQxBGKOaztq+hjIQ=="
@@ -6169,7 +6169,7 @@
   "resolved" "https://registry.npmjs.org/react-freeze/-/react-freeze-1.0.0.tgz"
   "version" "1.0.0"
 
-"react-is@^16.12.0 || ^17.0.0", "react-is@^16.13.0", "react-is@^16.7.0", "react-is@^16.8.1":
+"react-is@^16.12.0 || ^17.0.0", "react-is@^16.13.0", "react-is@^16.13.1", "react-is@^16.7.0":
   "integrity" "sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ=="
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
   "version" "16.13.1"
@@ -6222,6 +6222,13 @@
     "invariant" "^2.2.4"
     "lodash" "^4.17.21"
     "prop-types" "^15.7.2"
+
+"react-native-image-progress@^1.2.0":
+  "integrity" "sha512-RkQydqw3p0i30vHRFFhuGNT/BXWUDJtBR5/hxJbQsfI/Ziipjm5M64bpw3VQqxUcZC8HLLg+ZQtBq1mtUlWjww=="
+  "resolved" "https://registry.npmjs.org/react-native-image-progress/-/react-native-image-progress-1.2.0.tgz"
+  "version" "1.2.0"
+  dependencies:
+    "prop-types" "^15.8.0"
 
 "react-native-inappbrowser-reborn@^3.6.3":
   "integrity" "sha512-fqF708GVZ/7zja0/GyJQfjDfKREOe1fxYq8RAKZo8/KK6SkFO9hBlYqC3PwLFPw29zzwBzR+6EpL3qo95igkLw=="
