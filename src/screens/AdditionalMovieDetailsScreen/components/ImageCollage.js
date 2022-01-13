@@ -1,37 +1,38 @@
 import React from 'react';
-import {StyleSheet, useWindowDimensions, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
+import Animated from 'react-native-reanimated';
 import {COLORS} from '../../../contants';
 import {MaskedMovieImage} from './MakedImage';
 
 const styles = StyleSheet.create({
   container: {
-    position: 'relative',
-  },
-  mainLayer: {
-    borderRightColor: 'transparent',
-    borderLeftColor: 'transparent',
+    position: 'absolute',
   },
 });
 
-export const ImageCollage = ({sourceUrl}) => {
-  const {height: windowHeight} = useWindowDimensions();
-
+export const ImageCollage = ({sourceUrl, primaryHeight}) => {
   return (
     <View style={styles.container}>
-      <MaskedMovieImage
-        sourceUrl={sourceUrl}
-        mainHeight={windowHeight * 0.8 - 100}
-        backgroundColor={COLORS.BACKGROUND_PRIMARY_75}
-      />
-      <MaskedMovieImage
-        sourceUrl={sourceUrl}
-        backgroundColor={COLORS.BACKGROUND_PRIMARY_35}
-        mainHeight={windowHeight * 0.8 - 200}
-      />
-      <MaskedMovieImage
-        sourceUrl={sourceUrl}
-        mainHeight={windowHeight * 0.8 - 300}
-      />
+      <Animated.View>
+        <MaskedMovieImage
+          sourceUrl={sourceUrl}
+          mainHeight={primaryHeight - 100}
+          backgroundColor={COLORS.BACKGROUND_PRIMARY_75}
+        />
+      </Animated.View>
+      <View>
+        <MaskedMovieImage
+          sourceUrl={sourceUrl}
+          backgroundColor={COLORS.BACKGROUND_PRIMARY_35}
+          mainHeight={primaryHeight - 200}
+        />
+      </View>
+      <View>
+        <MaskedMovieImage
+          sourceUrl={sourceUrl}
+          mainHeight={primaryHeight - 300}
+        />
+      </View>
     </View>
   );
 };

@@ -13,9 +13,8 @@ import {
   getRecommendedMovies,
 } from '../../services/mainMovieService/main_movie.service';
 import {InfoSectionComponent} from './components/InfoSectionComponent';
-import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
+import {ScrollView} from 'react-native-gesture-handler';
 import {COLORS} from '../../contants';
-import {Icon as ElementsIcon} from 'react-native-elements';
 import {HorizontalCarousel} from '../components/HorizontalCarousel';
 import {useQuery} from 'react-query';
 import {MovieCaroucelItem} from '../components/MovieCaroucelItem';
@@ -23,6 +22,7 @@ import {CrewCarouselItem} from '../components/CrewCarouselItem';
 import InAppBrowser from 'react-native-inappbrowser-reborn';
 import {BallIndicator} from 'react-native-indicators';
 import {useNavigation} from '@react-navigation/native';
+import {YouTubeButton} from '../components/YouTubeButton';
 
 const styles = StyleSheet.create({
   frontImageStyle: {
@@ -66,14 +66,6 @@ const styles = StyleSheet.create({
   },
 });
 
-const YouTubeButton = ({onPress}) => {
-  return (
-    <TouchableOpacity onPress={onPress}>
-      <ElementsIcon size={100} name="play-circle-filled" color={COLORS.RED} />
-    </TouchableOpacity>
-  );
-};
-
 export const MovieDetailsScreen = () => {
   const {data: movie, isFetching} = useQuery('primary_movie', {enabled: false});
   const {navigate} = useNavigation();
@@ -107,8 +99,6 @@ export const MovieDetailsScreen = () => {
       });
     }
   };
-
-  console.log('isLoading', isFetching);
 
   const handlePressRecomended = movie => {
     if (movie) {
