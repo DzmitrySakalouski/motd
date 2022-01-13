@@ -28,5 +28,7 @@ module.exports = {
     'react-native/no-inline-styles': 'error',
     'space-before-blocks': 'error',
     'jsx-quotes': ['error', 'prefer-double'],
+    'newline-before-return': 'error',
+    'no-shadow': 'off',
   },
 };

@@ -110,8 +110,10 @@ export const MovieDetailsScreen = () => {
 
   console.log('isLoading', isFetching);
 
-  const handlePressRecomended = id => {
-    navigate('RecomendedMovieDetails', {params: id});
+  const handlePressRecomended = movie => {
+    if (movie) {
+      navigate('AdditionalMovieDetailsScreen', {movie});
+    }
   };
 
   if (isFetching) {
@@ -150,7 +152,9 @@ export const MovieDetailsScreen = () => {
           items={recommendedData?.results}
           title="Recommended"
           isLoading={isLoadingRecommended}
-          onItemPress={id => handlePressRecomended(id, id)}
+          onItemPress={recomendedMovie =>
+            handlePressRecomended(recomendedMovie)
+          }
           CaroucelItem={MovieCaroucelItem}
         />
       </View>

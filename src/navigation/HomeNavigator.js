@@ -12,9 +12,6 @@ const screenOptions = {
   headerTransparent: true,
   headerTitle: () => null,
   headerTintColor: COLORS.PRIMARY,
-  headerStyle: {
-    marginTop: 10,
-  },
   drawerType: 'front',
   drawerStyle: {
     backgroundColor: 'transparent',

@@ -52,7 +52,7 @@ export const HorizontalCarousel = ({
               <CaroucelItem
                 item={movieItem}
                 key={movieItem.id}
-                onPress={() => onItemPress(movieItem.id)}
+                onPress={() => onItemPress(movieItem)}
               />
             ))}
           </ScrollView>

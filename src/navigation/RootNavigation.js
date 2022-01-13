@@ -1,7 +1,7 @@
 import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
+import {AdditionalMovieDetailsScreen} from '../screens/AdditionalMovieDetailsScreen/AdditionalMovieDetailsScreen';
 import {HomeDrawerNavigator} from './HomeNavigator';
-import {RecomendedMovieDetailsModal} from '../screens/RecomendedMovieDetailsModal/RecomendedMovieDetailsModal';
 
 const RootStack = createStackNavigator();
 
@@ -16,9 +16,9 @@ export const RootNavigator = () => {
       initialRouteName="Main">
       <RootStack.Screen name="Main" component={HomeDrawerNavigator} />
       <RootStack.Screen
-        name="RecomendedMovieDetails"
+        name="AdditionalMovieDetailsScreen"
         options={{presentation: 'modal'}}
-        component={RecomendedMovieDetailsModal}
+        component={AdditionalMovieDetailsScreen}
       />
     </RootStack.Navigator>
   );
