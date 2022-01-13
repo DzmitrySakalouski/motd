@@ -7,7 +7,8 @@ import App from './src/App';
 import {name as appName} from './app.json';
 import admob, {MaxAdContentRating} from '@invertase/react-native-google-ads';
 
-admob().setRequestConfiguration({
+admob()
+  .setRequestConfiguration({
     // Update all future requests suitable for parental guidance
     maxAdContentRating: MaxAdContentRating.PG,
 
@@ -19,7 +20,7 @@ admob().setRequestConfiguration({
     tagForUnderAgeOfConsent: true,
 
     // An array of test device IDs to whitelist.
-    testDeviceIdentifiers: ["EMULATOR"]
+    testDeviceIdentifiers: ['EMULATOR'],
   })
   .then(() => {
     // Request config successfully set!
