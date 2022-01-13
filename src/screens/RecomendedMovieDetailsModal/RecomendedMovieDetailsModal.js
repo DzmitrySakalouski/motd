@@ -1,11 +1,17 @@
 import React from 'react';
-import { View, Text, Modal } from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 
-export const RecomendedMovieDetailsModal = ({isWisible}) => {
-    return (
-            <View style={{backgroundColor: 'red', flex: 1}}>
-                <Text>Details</Text>
-            </View>
-        
-    )
-}
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: 'red',
+    flex: 1,
+  },
+});
+
+export const RecomendedMovieDetailsModal = () => {
+  return (
+    <View style={styles.container}>
+      <Text>Details</Text>
+    </View>
+  );
+};
