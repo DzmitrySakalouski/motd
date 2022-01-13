@@ -6,6 +6,7 @@ import {COLORS} from '../../contants';
 import {
   buildTrailerUrl,
   getMovieImage,
+  getMovieVideo,
 } from '../../services/mainMovieService/main_movie.service';
 import {YouTubeButton} from '../components/YouTubeButton';
 
@@ -47,7 +48,9 @@ export const AdditionalMovieDetailsScreen = () => {
   const movieImage = useMemo(() => getMovieImage(movie?.poster_path), [movie]);
 
   const openTrailer = async () => {
-    const url = buildTrailerUrl(movie.video);
+    const video = await getMovieVideo(movie.id);
+    const url = buildTrailerUrl(video.results[0]);
+    console.log(video);
     if (url) {
       await InAppBrowser.open(url, {
         dismissButtonStyle: 'cancel',

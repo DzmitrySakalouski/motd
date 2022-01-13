@@ -18,6 +18,7 @@ export const configureMainMovie = async () => {
     const video = await axiosInstance.get(`/movie/${movieToDisplay.id}/videos`);
     const movie = await getMovieDetails(movieToDisplay.id);
     movie.video = video.results[0];
+
     return movie;
   }
 
@@ -32,6 +33,7 @@ export const presentMovie = async () => {
     console.log('includes');
     const movie = await fetchSavedMovie(currentDate);
     console.log('includes', movie);
+
     return movie;
   }
 
@@ -47,6 +49,7 @@ export const fetchSavedMovie = async dateStringKey => {
 export const saveNewMovie = async movie => {
   const currentDate = moment().format('MM_dd_YYYY');
   const movieString = JSON.stringify(movie);
+
   return await AsyncStorage.setItem(currentDate, movieString);
 };
 
@@ -54,6 +57,7 @@ export const updateMovie = async () => {
   console.log('UPDATE');
   const movie = await fetchMovie();
   await saveNewMovie(movie);
+
   return movie;
 };
 
@@ -69,7 +73,7 @@ export const fetchMovie = async () => {
       Math.random() * randomPageMovies.results.length,
     );
     const movieToDisplay = randomPageMovies.results[randomMovieIndexFromRange];
-    const video = await axiosInstance.get(`/movie/${movieToDisplay.id}/videos`);
+    const video = await getMovieVideo(movieToDisplay.id);
     const movie = await getMovieDetails(movieToDisplay.id);
     movie.video = video.results[0];
 
@@ -85,6 +89,12 @@ const getMovieDetails = async id => {
   return data;
 };
 
+export const getMovieVideo = async id => {
+  const data = await axiosInstance.get(`/movie/${id}/videos`);
+
+  return data;
+};
+
 export const getMovieImage = path => `${IMAGE_BASE_URL}${path}`;
 
 export const getCast = async movieId => {
@@ -96,7 +106,7 @@ export const getRecommendedMovies = async id => {
 };
 
 export const buildTrailerUrl = video => {
-  if (video.site == 'YouTube') {
+  if (video.site === 'YouTube') {
     return `https://www.youtube.com/watch?v=${video.key}`;
   }
 
