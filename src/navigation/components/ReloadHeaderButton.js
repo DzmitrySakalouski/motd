@@ -24,7 +24,6 @@ export const ReloadButton = () => {
     <Icon
       containerStyle={styles.container}
       onPress={() => {
-        console.log('klklklklkkl');
         update();
       }}
       name="rotate-left"
