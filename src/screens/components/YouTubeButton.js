@@ -1,5 +1,4 @@
 import React from 'react';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 import {Icon as ElementsIcon} from 'react-native-elements';
 import {COLORS} from '../../contants';
 import {StyleSheet} from 'react-native';
@@ -24,10 +23,12 @@ export const YouTubeButton = ({
   customContainerStyle = {},
 }) => {
   return (
-    <TouchableOpacity
+    <ElementsIcon
       onPress={onPress}
-      style={[hasShadow && styles.shadow, customContainerStyle]}>
-      <ElementsIcon size={100} name="play-circle-filled" color={COLORS.RED} />
-    </TouchableOpacity>
+      size={100}
+      name="play-circle-filled"
+      color={COLORS.RED}
+      containerStyle={[hasShadow && styles.shadow, customContainerStyle]}
+    />
   );
 };

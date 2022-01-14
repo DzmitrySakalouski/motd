@@ -1,5 +1,5 @@
 import React, {useMemo} from 'react';
-import {Image, StyleSheet, View} from 'react-native';
+import {ImageBackground, StyleSheet, View} from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -55,6 +55,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     opacity: 0.3,
+    // position: 'relative',
   },
   header: {
     width: '100%',
@@ -117,7 +118,7 @@ export const MovieDetailsScreen = () => {
   return (
     <ScrollView bounces={false} contentContainerStyle={styles.container}>
       <View style={styles.header}>
-        <Image source={{uri: movieImage}} style={styles.bgPoster} />
+        <ImageBackground source={{uri: movieImage}} style={styles.bgPoster} />
         <View style={styles.frontImageStyleContainer}>
           <SharedElement id="movie_poster_main">
             <Animated.Image
