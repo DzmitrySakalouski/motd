@@ -54,7 +54,6 @@ export const saveNewMovie = async movie => {
 };
 
 export const updateMovie = async () => {
-  console.log('UPDATE');
   const movie = await fetchMovie();
   await saveNewMovie(movie);
 

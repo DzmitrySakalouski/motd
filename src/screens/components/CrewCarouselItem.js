@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet, Text, Image} from 'react-native';
+import {View, StyleSheet, Text, Image, Pressable} from 'react-native';
 import {Icon} from 'react-native-elements';
 import {COLORS} from '../../contants';
 import {getMovieImage} from '../../services/mainMovieService/main_movie.service';
@@ -40,18 +40,20 @@ const styles = StyleSheet.create({
 export const CrewCarouselItem = ({item, onPress}) => {
   return (
     <View style={styles.itemContainer}>
-      {item.profile_path ? (
-        <Image
-          style={styles.itemImage}
-          source={{uri: getMovieImage(item.profile_path)}}
-        />
-      ) : (
-        <View style={[styles.itemImage, styles.placeholder]}>
-          <Icon name="theater-comedy" size={90} color={COLORS.PRIMARY} />
-        </View>
-      )}
-      <Text style={[styles.text, styles.name]}>{item.name}</Text>
-      <Text style={[styles.text, styles.secondary]}>{item.character}</Text>
+      <Pressable onPress={() => onPress(item)}>
+        {item.profile_path ? (
+          <Image
+            style={styles.itemImage}
+            source={{uri: getMovieImage(item.profile_path)}}
+          />
+        ) : (
+          <View style={[styles.itemImage, styles.placeholder]}>
+            <Icon name="theater-comedy" size={90} color={COLORS.PRIMARY} />
+          </View>
+        )}
+        <Text style={[styles.text, styles.name]}>{item.name}</Text>
+        <Text style={[styles.text, styles.secondary]}>{item.character}</Text>
+      </Pressable>
     </View>
   );
 };

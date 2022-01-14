@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
   },
   container: {
     marginRight: 30,
+    width: 130,
   },
   itemTitle: {
     marginTop: 5,

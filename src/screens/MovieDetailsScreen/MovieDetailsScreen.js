@@ -68,15 +68,22 @@ const styles = StyleSheet.create({
 });
 
 export const MovieDetailsScreen = () => {
-  const {data: movie, isFetching} = useQuery('primary_movie', {enabled: false});
+  const {
+    data: movie,
+    isFetching,
+    isFetched: isMovieFetched,
+  } = useQuery('primary_movie', {enabled: false});
   const {navigate} = useNavigation();
   const movieImage = useMemo(() => getMovieImage(movie?.poster_path), [movie]);
   const {data: recommendedData, isLoading: isLoadingRecommended} = useQuery(
-    'recommended',
+    ['recommended', isMovieFetched, movie],
     () => getRecommendedMovies(movie.id),
+    {enabled: isMovieFetched},
   );
-  const {data: crewData, isLoading: isLoadingCrew} = useQuery('crew', () =>
-    getCast(movie.id),
+  const {data: crewData, isLoading: isLoadingCrew} = useQuery(
+    ['crew', isMovieFetched, movie],
+    () => getCast(movie.id),
+    {enabled: isMovieFetched},
   );
 
   const borderRadiusValue = useSharedValue(15);
@@ -104,6 +111,12 @@ export const MovieDetailsScreen = () => {
   const handlePressRecomended = movie => {
     if (movie) {
       navigate('AdditionalMovieDetailsScreen', {movie});
+    }
+  };
+
+  const handlePressCrew = crew => {
+    if (crew) {
+      navigate('CrewMemberProfile', {crew});
     }
   };
 
@@ -136,7 +149,7 @@ export const MovieDetailsScreen = () => {
           items={crewData?.cast}
           title="Cast"
           isLoading={isLoadingCrew}
-          onItemPress={null}
+          onItemPress={crew => handlePressCrew(crew)}
           CaroucelItem={CrewCarouselItem}
         />
         <HorizontalCarousel

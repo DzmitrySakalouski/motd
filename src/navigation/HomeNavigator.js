@@ -2,21 +2,23 @@ import React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {AboutScreen, AdsSettingsScreen} from '../screens';
 import {AppNavigation} from './AppNavigation';
-import {COLORS} from '../contants';
+// import {COLORS} from '../contants';
 import {Drawer} from './components/Drawer';
+// import {ReloadButton} from './components/ReloadHeaderButton';
 
 const HomeDrawer = createDrawerNavigator();
 
 const screenOptions = {
-  headerTransparent: true,
-  headerTitle: () => null,
-  headerTintColor: COLORS.PRIMARY,
+  headerShown: false,
+  // headerTitle: () => null,
+  // headerTintColor: COLORS.PRIMARY,
   drawerType: 'front',
   gestureEnabled: false,
   drawerStyle: {
     backgroundColor: 'transparent',
     width: '100%',
   },
+  // headerRight: () => <ReloadButton />,
 };
 
 export const HomeDrawerNavigator = () => (

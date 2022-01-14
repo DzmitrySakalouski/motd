@@ -6,7 +6,8 @@ import {MovieDetailsScreen} from '../screens/MovieDetailsScreen/MovieDetailsScre
 
 import 'react-native-gesture-handler';
 import {AdditionalMovieDetailsScreen} from '../screens/AdditionalMovieDetailsScreen/AdditionalMovieDetailsScreen';
-// import {ReloadButton} from './components/ReloadHeaderButton';
+import {CrewMemberProfile} from '../screens/CrewMemberProfile/CrewMemberProfile';
+import {COLORS} from '../contants';
 
 const AppStack = createSharedElementStackNavigator();
 
@@ -49,6 +50,16 @@ export const AppNavigation = () => {
 
           return [`image_background.${id}`];
         }}
+      />
+      <AppStack.Screen
+        options={{
+          presentation: 'transparentModal',
+          headerLeftLabelVisible: false,
+          headerTintColor: COLORS.PRIMARY,
+          headerTitle: '',
+        }}
+        name="CrewMemberProfile"
+        component={CrewMemberProfile}
       />
     </AppStack.Navigator>
   );
