@@ -62,6 +62,32 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  bioContainer: {
+    paddingHorizontal: 16,
+    marginTop: 22,
+  },
+  noBioBanner: {
+    flexDirection: 'row',
+    paddingHorizontal: 16,
+    paddingVertical: 16,
+    backgroundColor: COLORS.BACKGROUND_PRIMARY_35,
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  noBioText: {
+    marginTop: 3,
+    marginLeft: 10,
+  },
+  bioText: {
+    color: COLORS.PRIMARY,
+    marginTop: 10,
+    fontSize: 16,
+    fontFamily: 'Roboto',
+  },
+  scroll: {
+    paddingBottom: 30,
+  },
 });
 
 export const CrewMemberProfile = () => {
@@ -75,11 +101,9 @@ export const CrewMemberProfile = () => {
 
   const {actorData} = useActorData(crew.id, !!crew);
   const {actorMoviesList} = useActorMovies(crew.id, !!crew);
-  console.log('actorData', actorData);
 
   const openIMDB = async () => {
     const url = buildIMDBLink(actorData?.imdb_id);
-    console.log(url);
     if (url) {
       await InAppBrowser.open(url, {
         dismissButtonStyle: 'cancel',
@@ -105,7 +129,10 @@ export const CrewMemberProfile = () => {
         blurAmount={10}
         reducedTransparencyFallbackColor="white"
       />
-      <ScrollView>
+      <ScrollView
+        bounces={false}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.scroll}>
         <View style={[styles.header]}>
           <Image
             source={{uri: getMovieImage(crew.profile_path)}}
@@ -159,6 +186,21 @@ export const CrewMemberProfile = () => {
               color={COLORS.PRIMARY}
             />
           </View>
+        </View>
+        <View style={styles.bioContainer}>
+          {actorData?.biography ? (
+            <View>
+              <Text style={[styles.subtitleText]}>Biography:</Text>
+              <Text style={styles.bioText}>{actorData.biography}</Text>
+            </View>
+          ) : (
+            <View style={styles.noBioBanner}>
+              <Icon name="error-outline" color={COLORS.PRIMARY} size={34} />
+              <Text style={[styles.subtitleText, styles.noBioText]}>
+                No biography available
+              </Text>
+            </View>
+          )}
         </View>
       </ScrollView>
     </ImageBackground>
