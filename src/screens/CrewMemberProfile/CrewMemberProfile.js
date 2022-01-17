@@ -9,6 +9,7 @@ import {useSafeAreaFrame} from 'react-native-safe-area-context';
 import {COLORS} from '../../contants';
 import {buildIMDBLink} from '../../services/actorService/actor.service';
 import {getMovieImage} from '../../services/mainMovieService/main_movie.service';
+import {MoviePreview} from './components/MoviePreview';
 import {useActorData} from './hooks/useActorData';
 import {useActorMovies} from './hooks/useActorMoves';
 
@@ -107,6 +108,7 @@ export const CrewMemberProfile = () => {
 
   const {actorData} = useActorData(crew.id, !!crew);
   const {actorMoviesList} = useActorMovies(crew.id, !!crew);
+  console.log(actorMoviesList.cast[0]);
 
   const openIMDB = async () => {
     const url = buildIMDBLink(actorData?.imdb_id);
@@ -219,6 +221,7 @@ export const CrewMemberProfile = () => {
             </View>
           )}
         </View>
+        <MoviePreview movies={actorMoviesList?.cast} />
       </ScrollView>
     </ImageBackground>
   );
