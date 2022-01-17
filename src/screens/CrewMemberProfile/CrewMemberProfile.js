@@ -88,6 +88,12 @@ const styles = StyleSheet.create({
   scroll: {
     paddingBottom: 30,
   },
+  placeholder: {
+    backgroundColor: COLORS.BACKGROUND_SECONDARY,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+  },
 });
 
 export const CrewMemberProfile = () => {
@@ -134,16 +140,27 @@ export const CrewMemberProfile = () => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scroll}>
         <View style={[styles.header]}>
-          <Image
-            source={{uri: getMovieImage(crew.profile_path)}}
-            // resizeMode="cover"
-            style={[
-              styles.actorImage,
-              {width: imageWidth, height: imageHeight},
-            ]}
-            resizeMode="cover"
-            // resizeMethod="scale"
-          />
+          {crew.profile_path ? (
+            <Image
+              source={{uri: getMovieImage(crew.profile_path)}}
+              // resizeMode="cover"
+              style={[
+                styles.actorImage,
+                {width: imageWidth, height: imageHeight},
+              ]}
+              resizeMode="cover"
+              // resizeMethod="scale"
+            />
+          ) : (
+            <View
+              style={[
+                {width: imageWidth, height: imageHeight},
+                styles.placeholder,
+              ]}>
+              <Icon name="theater-comedy" size={90} color={COLORS.PRIMARY} />
+            </View>
+          )}
+
           <View style={[styles.nameTextContainer, {width: nameFontSize}]}>
             <Text
               style={[
