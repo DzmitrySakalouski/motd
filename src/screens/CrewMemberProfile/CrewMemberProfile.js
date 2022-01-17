@@ -1,93 +1,166 @@
+import {BlurView} from '@react-native-community/blur';
 import {useRoute} from '@react-navigation/native';
 import React from 'react';
 import {View, Image, StyleSheet, Text, ImageBackground} from 'react-native';
+import {Icon} from 'react-native-elements';
+import {ScrollView} from 'react-native-gesture-handler';
+import InAppBrowser from 'react-native-inappbrowser-reborn';
 import {useSafeAreaFrame} from 'react-native-safe-area-context';
 import {COLORS} from '../../contants';
+import {buildIMDBLink} from '../../services/actorService/actor.service';
 import {getMovieImage} from '../../services/mainMovieService/main_movie.service';
+import {useActorData} from './hooks/useActorData';
+import {useActorMovies} from './hooks/useActorMoves';
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: COLORS.BACKGROUND_PRIMARY,
-    paddingHorizontal: 16,
-  },
   actorImage: {
-    borderRadius: 10,
+    height: 300,
+    width: 190,
   },
-  imageBg: {
-    backgroundColor: COLORS.BACKGROUND_PRIMARY_75,
-    flex: 1,
-    // position: 'relative'
-    zIndex: 0,
+  blurContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
   },
-  shadow: {
-    shadowColor: '#fff',
-    shadowOffset: {
-      width: 2,
-      height: 2,
-    },
-    shadowOpacity: 0.6,
-    shadowRadius: 14,
-
-    elevation: 10,
-  },
-  crewName: {
-    color: COLORS.PRIMARY,
-    fontFamily: 'Bebas Neue',
-    fontSize: 30,
-    height: 40,
-    textAlign: 'center',
-  },
-
-  pageItem: {
-    flex: 0.5,
-    overflow: 'visible',
-    backgroundColor: COLORS.BACKGROUND_PRIMARY_75,
+  imgBackgroundContainer: {
+    height: '100%',
+    width: '100%',
   },
   header: {
-    bottom: -100,
-    position: 'absolute',
-    zIndex: 100,
+    overflow: 'visible',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 30,
+  },
+  nameTextContainer: {},
+  crewName: {
+    fontFamily: 'Bebas Neue',
+    textAlign: 'center',
+    color: COLORS.PRIMARY,
+    lineHeight: 30,
+    marginLeft: 10,
+  },
+  metricsItem: {
+    alignItems: 'center',
+    marginTop: 18,
+    paddingHorizontal: 16,
+  },
+  subtitleText: {
+    color: COLORS.PRIMARY,
+    fontFamily: 'Bebas Neue',
+    fontSize: 21,
+  },
+  title: {
+    color: COLORS.PRIMARY,
+    fontFamily: 'Bebas Neue',
+    fontSize: 45,
+  },
+  metrics: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
 export const CrewMemberProfile = () => {
   const {params} = useRoute();
-  const {width: windowWidth, height: windowHeight} = useSafeAreaFrame();
-  const imageHeight = windowWidth / 1.5;
-  const imageWidth = windowWidth / 2;
+  const {width: windowWidth} = useSafeAreaFrame();
+  const imageHeight = windowWidth / 1.2;
+  const imageWidth = windowWidth / 1.8;
+  const nameFontSize = 30;
 
   const {crew} = params;
 
+  const {actorData} = useActorData(crew.id, !!crew);
+  const {actorMoviesList} = useActorMovies(crew.id, !!crew);
+  console.log('actorData', actorData);
+
+  const openIMDB = async () => {
+    const url = buildIMDBLink(actorData?.imdb_id);
+    console.log(url);
+    if (url) {
+      await InAppBrowser.open(url, {
+        dismissButtonStyle: 'cancel',
+        preferredBarTintColor: COLORS.BACKGROUND_PRIMARY,
+        preferredControlTintColor: COLORS.PRIMARY,
+        readerMode: false,
+        animated: true,
+        modalPresentationStyle: 'fullScreen',
+        modalTransitionStyle: 'coverVertical',
+        modalEnabled: true,
+        enableBarCollapsing: false,
+      });
+    }
+  };
+
   return (
-    <View style={{flex: 1, backgroundColor: COLORS.BACKGROUND_PRIMARY}}>
-      <ImageBackground
-        source={{uri: getMovieImage(crew.profile_path)}}
-        width={windowWidth}
-        height={windowHeight / 2}
-        style={styles.pageItem}>
-        {/* <View style={styles.imageBg}> */}
-        <View
-          style={[
-            styles.shadow,
-            styles.header,
-            //   {marginTop: windowHeight * 0.14},
-          ]}>
+    <ImageBackground
+      source={{uri: getMovieImage(crew.profile_path)}}
+      style={styles.imgBackgroundContainer}>
+      <BlurView
+        style={styles.blurContainer}
+        blurType="dark"
+        blurAmount={10}
+        reducedTransparencyFallbackColor="white"
+      />
+      <ScrollView>
+        <View style={[styles.header]}>
           <Image
             source={{uri: getMovieImage(crew.profile_path)}}
-            resizeMode="cover"
+            // resizeMode="cover"
             style={[
               styles.actorImage,
-              styles.shadow,
-              {height: imageHeight, width: imageWidth},
+              {width: imageWidth, height: imageHeight},
             ]}
+            resizeMode="cover"
+            // resizeMethod="scale"
           />
-          <View>
-            <Text style={[styles.crewName]}>{crew.name}</Text>
+          <View style={[styles.nameTextContainer, {width: nameFontSize}]}>
+            <Text
+              style={[
+                styles.crewName,
+                {
+                  width: imageHeight,
+                  fontSize: nameFontSize,
+                  transform: [
+                    {
+                      translateX: -(imageHeight / 2 - nameFontSize / 2),
+                    },
+                    {
+                      translateY: imageHeight / 2 - nameFontSize / 2,
+                    },
+                    {
+                      rotate: '-90deg',
+                    },
+                  ],
+                },
+              ]}>
+              {crew.name}
+            </Text>
           </View>
         </View>
-        {/* </View> */}
-      </ImageBackground>
-      <View style={[styles.container, styles.pageItem]} />
-    </View>
+        <View style={styles.metrics}>
+          <View style={styles.metricsItem}>
+            <Text style={styles.subtitleText}>movies</Text>
+            <Text style={styles.title}>{actorMoviesList?.cast?.length}</Text>
+          </View>
+          <View style={styles.metricsItem}>
+            <Text style={styles.subtitleText}>Popularity</Text>
+            <Text style={styles.title}>{actorData?.popularity}</Text>
+          </View>
+          <View style={styles.metricsItem}>
+            <Text style={styles.subtitleText}>Imdb</Text>
+            <Icon
+              name="link"
+              onPress={openIMDB}
+              size={54}
+              color={COLORS.PRIMARY}
+            />
+          </View>
+        </View>
+      </ScrollView>
+    </ImageBackground>
   );
 };
