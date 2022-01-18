@@ -1,4 +1,8 @@
-import {BannerAd, BannerAdSize} from '@invertase/react-native-google-ads';
+import {
+  BannerAd,
+  BannerAdSize,
+  TestIds,
+} from '@invertase/react-native-google-ads';
 import {BlurView} from '@react-native-community/blur';
 import {useRoute} from '@react-navigation/native';
 import React from 'react';
@@ -34,7 +38,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   banner: {
-    width: '100%',
+    // width: '100%',
   },
   header: {
     overflow: 'visible',
@@ -103,6 +107,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
 });
+
+const adId =
+  Config.ENVIRONMENT === 'PROD'
+    ? Config.BOTTOM_ACTOR_BANNER
+    : TestIds.INTERSTITIAL;
 
 export const CrewMemberProfile = () => {
   const {params} = useRoute();
@@ -257,13 +266,10 @@ export const CrewMemberProfile = () => {
           />
           <View height={windowWidth * 0.1} />
         </ScrollView>
+        <View style={styles.banner}>
+          <BannerAd unitId={adId} size={BannerAdSize.ADAPTIVE_BANNER} />
+        </View>
       </ImageBackground>
-      <View style={styles.banner}>
-        <BannerAd
-          unitId={Config.BOTTOM_ACTOR_BANNER}
-          size={BannerAdSize.ADAPTIVE_BANNER}
-        />
-      </View>
     </>
   );
 };

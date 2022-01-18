@@ -12,7 +12,11 @@ import {
   getMovieImage,
   presentMovie,
 } from '../../services/mainMovieService/main_movie.service';
-import {BannerAd, BannerAdSize} from '@invertase/react-native-google-ads';
+import {
+  BannerAd,
+  BannerAdSize,
+  TestIds,
+} from '@invertase/react-native-google-ads';
 import Config from 'react-native-config';
 import Snackbar from 'react-native-snackbar';
 
@@ -61,6 +65,9 @@ const styles = StyleSheet.create({
     width: 230,
   },
 });
+
+const adId =
+  Config.ENVIRONMENT === 'PROD' ? Config.BOTTOM_BANNER : TestIds.INTERSTITIAL;
 
 export const MainMovieScreen = () => {
   const {
@@ -140,10 +147,7 @@ export const MainMovieScreen = () => {
         </TouchableOpacity>
       </ImageBackground>
       <View style={styles.banner}>
-        <BannerAd
-          unitId={Config.BOTTOM_BANNER}
-          size={BannerAdSize.ADAPTIVE_BANNER}
-        />
+        <BannerAd unitId={adId} size={BannerAdSize.ADAPTIVE_BANNER} />
       </View>
     </>
   );
