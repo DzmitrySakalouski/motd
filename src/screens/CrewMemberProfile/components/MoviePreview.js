@@ -83,11 +83,14 @@ export const MoviePreview = ({movies, isLoading, actorId}) => {
         <TouchableOpacity
           onPress={() => handleMoviePress(first)}
           style={styles.rounded}>
+          {}
           <SharedElement id={`image_background.${first.id}`}>
             <Image
               style={styles.columnImg}
               resizeMode="cover"
-              source={{uri: getMovieImage(first?.poster_path)}}
+              source={{
+                uri: getMovieImage(first?.poster_path || first?.backdrop_path),
+              }}
             />
           </SharedElement>
         </TouchableOpacity>
@@ -96,7 +99,7 @@ export const MoviePreview = ({movies, isLoading, actorId}) => {
         {second && (
           <TouchableOpacity
             onPress={() => handleMoviePress(second)}
-            style={[styles.column]}>
+            style={[styles.column, movies.length < 3 && {flex: 1}]}>
             <SharedElement id={`image_background.${second.id}`}>
               <Image
                 style={[styles.columnImg, {height: windowWidth * 0.7}]}
@@ -106,11 +109,13 @@ export const MoviePreview = ({movies, isLoading, actorId}) => {
             </SharedElement>
           </TouchableOpacity>
         )}
-        <TouchableOpacity
-          onPress={handlePressSeeMore}
-          style={[styles.showMoreBtn]}>
-          <Text style={styles.btnText}>see more</Text>
-        </TouchableOpacity>
+        {movies.length >= 3 && (
+          <TouchableOpacity
+            onPress={handlePressSeeMore}
+            style={[styles.showMoreBtn]}>
+            <Text style={styles.btnText}>see more</Text>
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   );

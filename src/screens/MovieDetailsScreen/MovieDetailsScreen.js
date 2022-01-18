@@ -24,6 +24,8 @@ import {BallIndicator} from 'react-native-indicators';
 import {useNavigation} from '@react-navigation/native';
 import {YouTubeButton} from '../components/YouTubeButton';
 import Snackbar from 'react-native-snackbar';
+import Config from 'react-native-config';
+import {BannerAd, BannerAdSize} from '@invertase/react-native-google-ads';
 
 const styles = StyleSheet.create({
   frontImageStyle: {
@@ -65,6 +67,9 @@ const styles = StyleSheet.create({
   },
   mainSection: {
     paddingHorizontal: 24,
+  },
+  banner: {
+    width: '100%',
   },
 });
 
@@ -176,44 +181,52 @@ export const MovieDetailsScreen = () => {
   }
 
   return (
-    <ScrollView
-      bounces={false}
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={styles.container}>
-      <View style={styles.header}>
-        <ImageBackground source={{uri: movieImage}} style={styles.bgPoster} />
-        <View style={styles.frontImageStyleContainer}>
-          <SharedElement id="movie_poster_main">
-            <Animated.Image
-              pointerEvents="none"
-              source={{uri: movieImage}}
-              style={[styles.frontImageStyle, imageAnimationStyles]}
-            />
-          </SharedElement>
-          <YouTubeButton onPress={openTrailer} />
+    <>
+      <ScrollView
+        bounces={false}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.container}>
+        <View style={styles.header}>
+          <ImageBackground source={{uri: movieImage}} style={styles.bgPoster} />
+          <View style={styles.frontImageStyleContainer}>
+            <SharedElement id="movie_poster_main">
+              <Animated.Image
+                pointerEvents="none"
+                source={{uri: movieImage}}
+                style={[styles.frontImageStyle, imageAnimationStyles]}
+              />
+            </SharedElement>
+            <YouTubeButton onPress={openTrailer} />
+          </View>
         </View>
-      </View>
-      <View style={styles.mainSection}>
-        <InfoSectionComponent movie={movie} />
-        <HorizontalCarousel
-          items={crewData?.cast}
-          title="Cast"
-          isLoading={isLoadingCrew}
-          onItemPress={crew => handlePressCrew(crew)}
-          CaroucelItem={CrewCarouselItem}
-          type="cast"
+        <View style={styles.mainSection}>
+          <InfoSectionComponent movie={movie} />
+          <HorizontalCarousel
+            items={crewData?.cast}
+            title="Cast"
+            isLoading={isLoadingCrew}
+            onItemPress={crew => handlePressCrew(crew)}
+            CaroucelItem={CrewCarouselItem}
+            type="cast"
+          />
+          <HorizontalCarousel
+            items={recommendedData?.results}
+            title="Recommended"
+            isLoading={isLoadingRecommended}
+            onItemPress={recomendedMovie =>
+              handlePressRecomended(recomendedMovie)
+            }
+            CaroucelItem={MovieCaroucelItem}
+            type="movie"
+          />
+        </View>
+      </ScrollView>
+      <View style={styles.banner}>
+        <BannerAd
+          unitId={Config.BOTTOM_BANNER}
+          size={BannerAdSize.ADAPTIVE_BANNER}
         />
-        <HorizontalCarousel
-          items={recommendedData?.results}
-          title="Recommended"
-          isLoading={isLoadingRecommended}
-          onItemPress={recomendedMovie =>
-            handlePressRecomended(recomendedMovie)
-          }
-          CaroucelItem={MovieCaroucelItem}
-          type="movie"
-        />
       </View>
-    </ScrollView>
+    </>
   );
 };

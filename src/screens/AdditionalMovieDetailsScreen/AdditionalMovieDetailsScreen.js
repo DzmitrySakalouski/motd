@@ -75,7 +75,10 @@ export const AdditionalMovieDetailsScreen = () => {
   const {
     params: {movie},
   } = useRoute();
-  const movieImage = useMemo(() => getMovieImage(movie?.poster_path), [movie]);
+  const movieImage = useMemo(
+    () => getMovieImage(movie?.poster_path || movie?.backdrop_path),
+    [movie],
+  );
   const {height, width} = useSafeAreaFrame();
   const {goBack} = useNavigation();
 
@@ -153,7 +156,11 @@ export const AdditionalMovieDetailsScreen = () => {
       <PanGestureHandler onGestureEvent={onGestureEvent}>
         <Animated.View style={moveStyle}>
           <SharedElement id={`image_background.${movie.id}`}>
-            <Image source={{uri: movieImage}} style={styles.imageBg} />
+            <Image
+              source={{uri: movieImage}}
+              resizeMode="cover"
+              style={styles.imageBg}
+            />
           </SharedElement>
         </Animated.View>
       </PanGestureHandler>

@@ -58,7 +58,7 @@ export const ActorsMoviesListItem = ({movie, onItemPress}) => {
           style={[
             styles.container,
             styles.textContainer,
-            {height: windowWidth * 0.8, width: windowWidth / 2 - 24},
+            {height: windowWidth * 0.7, width: windowWidth / 2 - 24},
           ]}>
           <View style={[styles.noImageItem, styles.flexEnd]}>
             <Icon name="theaters" size={50} color={COLORS.PRIMARY} />
@@ -72,7 +72,7 @@ export const ActorsMoviesListItem = ({movie, onItemPress}) => {
           <Image
             style={[
               styles.container,
-              {height: windowWidth * 0.8, width: windowWidth / 2 - 24},
+              {height: windowWidth * 0.67, width: windowWidth / 2 - 24},
             ]}
             resizeMode="cover"
             source={{
