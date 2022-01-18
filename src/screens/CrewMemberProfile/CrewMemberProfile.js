@@ -108,7 +108,7 @@ export const CrewMemberProfile = () => {
 
   const {actorData} = useActorData(crew.id, !!crew);
   const {actorMoviesList} = useActorMovies(crew.id, !!crew);
-  console.log(actorMoviesList.cast[0]);
+  console.log(actorMoviesList?.cast[0]);
 
   const openIMDB = async () => {
     const url = buildIMDBLink(actorData?.imdb_id);
