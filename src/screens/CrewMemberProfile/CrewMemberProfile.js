@@ -111,7 +111,6 @@ export const CrewMemberProfile = () => {
     crew.id,
     !!crew,
   );
-  console.log(actorMoviesList?.cast[0]);
 
   const openIMDB = async () => {
     const url = buildIMDBLink(actorData?.imdb_id);
@@ -227,6 +226,7 @@ export const CrewMemberProfile = () => {
         <MoviePreview
           movies={actorMoviesList?.cast}
           isLoading={isActorMoviesListLoading}
+          actorId={crew.id}
         />
       </ScrollView>
     </ImageBackground>

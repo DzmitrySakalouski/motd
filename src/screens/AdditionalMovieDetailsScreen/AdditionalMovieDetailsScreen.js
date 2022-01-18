@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
     marginRight: 16,
     textAlign: 'center',
     lineHeight: 27,
+    paddingBottom: 30,
   },
   square: {
     backgroundColor: COLORS.BACKGROUND_PRIMARY_75,
@@ -159,7 +160,10 @@ export const AdditionalMovieDetailsScreen = () => {
           <View style={[styles.youtubeContainer, {top: -(width / 5)}]}>
             <YouTubeButton onPress={openTrailer} />
           </View>
-          <ScrollView bounces={false} contentContainerStyle={styles.scroll}>
+          <ScrollView
+            bounces={false}
+            contentContainerStyle={styles.scroll}
+            showsVerticalScrollIndicator={false}>
             <View>
               <Text style={[styles.title]}>{movie.title}</Text>
               <Text style={[styles.overviewText]}>{movie.overview}</Text>

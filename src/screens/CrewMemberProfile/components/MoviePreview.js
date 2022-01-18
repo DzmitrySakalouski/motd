@@ -1,7 +1,9 @@
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {Image, View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {BallIndicator} from 'react-native-indicators';
 import {useSafeAreaFrame} from 'react-native-safe-area-context';
+import {SharedElement} from 'react-navigation-shared-element';
 import {COLORS} from '../../../contants';
 import {getMovieImage} from '../../../services/mainMovieService/main_movie.service';
 
@@ -45,8 +47,10 @@ const styles = StyleSheet.create({
   },
 });
 
-export const MoviePreview = ({movies, isLoading}) => {
+export const MoviePreview = ({movies, isLoading, actorId}) => {
   const {width: windowWidth} = useSafeAreaFrame();
+  const {navigate} = useNavigation();
+
   if (isLoading) {
     return (
       <View style={[styles.loader, {width: windowWidth, height: windowWidth}]}>
@@ -54,32 +58,55 @@ export const MoviePreview = ({movies, isLoading}) => {
       </View>
     );
   }
+
   if (!movies?.length) {
     return null;
   }
 
   const [first, second] = movies;
 
+  const handleMoviePress = movie => {
+    if (movie) {
+      navigate('AdditionalMovieDetailsScreen', {movie});
+    }
+  };
+
+  const handlePressSeeMore = () => {
+    navigate('ActorsMoviesList', {actorId});
+  };
+
   return (
     <View style={[styles.container, {height: windowWidth * 0.7}]}>
       <View style={[styles.column]}>
-        <TouchableOpacity tyle={styles.rounded}>
-          <Image
-            style={styles.columnImg}
-            resizeMode="cover"
-            source={{uri: getMovieImage(first?.poster_path)}}
-          />
+        <TouchableOpacity
+          onPress={() => handleMoviePress(first)}
+          style={styles.rounded}>
+          <SharedElement id={`image_background.${first.id}`}>
+            <Image
+              style={styles.columnImg}
+              resizeMode="cover"
+              source={{uri: getMovieImage(first?.poster_path)}}
+            />
+          </SharedElement>
         </TouchableOpacity>
       </View>
       <View style={styles.column}>
-        <TouchableOpacity style={[styles.column]}>
-          <Image
-            style={[styles.columnImg, {height: windowWidth * 0.7}]}
-            resizeMode="stretch"
-            source={{uri: getMovieImage(second?.poster_path)}}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity style={[styles.showMoreBtn]}>
+        {second && (
+          <TouchableOpacity
+            onPress={() => handleMoviePress(second)}
+            style={[styles.column]}>
+            <SharedElement id={`image_background.${second.id}`}>
+              <Image
+                style={[styles.columnImg, {height: windowWidth * 0.7}]}
+                resizeMode="stretch"
+                source={{uri: getMovieImage(second?.poster_path)}}
+              />
+            </SharedElement>
+          </TouchableOpacity>
+        )}
+        <TouchableOpacity
+          onPress={handlePressSeeMore}
+          style={[styles.showMoreBtn]}>
           <Text style={styles.btnText}>see more</Text>
         </TouchableOpacity>
       </View>

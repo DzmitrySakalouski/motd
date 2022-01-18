@@ -8,6 +8,7 @@ import 'react-native-gesture-handler';
 import {AdditionalMovieDetailsScreen} from '../screens/AdditionalMovieDetailsScreen/AdditionalMovieDetailsScreen';
 import {CrewMemberProfile} from '../screens/CrewMemberProfile/CrewMemberProfile';
 import {COLORS} from '../contants';
+import {ActorsMoviesList} from '../screens/ActorsMovies/ActorsMoviesList';
 
 const AppStack = createSharedElementStackNavigator();
 
@@ -60,6 +61,16 @@ export const AppNavigation = () => {
         }}
         name="CrewMemberProfile"
         component={CrewMemberProfile}
+      />
+      <AppStack.Screen
+        options={{
+          presentation: 'transparentModal',
+          headerLeftLabelVisible: false,
+          headerTintColor: COLORS.PRIMARY,
+          headerTitle: '',
+        }}
+        name="ActorsMoviesList"
+        component={ActorsMoviesList}
       />
     </AppStack.Navigator>
   );
