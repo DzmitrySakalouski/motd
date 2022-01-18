@@ -16,10 +16,13 @@ const styles = StyleSheet.create({
   },
   moviesList: {
     flexDirection: 'row',
-    justifyContent: 'flex-start',
+    justifyContent: 'space-evenly',
     flexWrap: 'wrap',
+    marginTop: 30,
   },
-  contentContainer: {
+  contentContainer: {},
+  container: {
+    flex: 1,
     backgroundColor: COLORS.BACKGROUND_PRIMARY,
   },
 });
@@ -45,18 +48,25 @@ export const ActorsMoviesList = () => {
   }
 
   return (
-    <ScrollView bounces={false} contentContainerStyle={styles.contentContainer}>
-      <View style={styles.moviesList}>
-        {actorMoviesList?.cast?.map(movie => {
-          return (
-            <ActorsMoviesListItem
-              movie={movie}
-              onItemPress={() => handlePressMovie(movie)}
-              key={movie.id}
-            />
-          );
-        })}
-      </View>
-    </ScrollView>
+    <View style={styles.container}>
+      <ScrollView
+        bounces={false}
+        contentContainerStyle={styles.contentContainer}>
+        <View style={styles.moviesList}>
+          {actorMoviesList?.cast?.map(movie => {
+            return (
+              <ActorsMoviesListItem
+                movie={movie}
+                onItemPress={() => handlePressMovie(movie)}
+                key={movie.id}
+              />
+            );
+          })}
+          {actorMoviesList?.cast?.length % 2 !== 0 && (
+            <ActorsMoviesListItem movie={null} key={'movie.id'} />
+          )}
+        </View>
+      </ScrollView>
+    </View>
   );
 };

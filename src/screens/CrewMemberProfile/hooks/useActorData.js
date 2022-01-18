@@ -5,7 +5,7 @@ import {getActorDataRequest} from '../../../services/actorService/actor.service'
 
 export const useActorData = (actorId, isEnabled = false) => {
   const cacheKey = 'actorData';
-  const {data: actorData, isLoading: isActorDataLoading} = useQuery(
+  const {data: actorData, isFetching: isActorDataLoading} = useQuery(
     cacheKey,
     () => getActorDataRequest(actorId),
     {

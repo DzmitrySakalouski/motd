@@ -5,10 +5,8 @@ import {getActorMoviesList} from '../../../services/actorService/actor.service';
 
 export const useActorMovies = (actorId, isEnabled = false) => {
   const cacheKey = 'actorMovies';
-  const {data: actorMoviesList, isLoading: isActorMoviesListLoading} = useQuery(
-    cacheKey,
-    () => getActorMoviesList(actorId),
-    {
+  const {data: actorMoviesList, isFetching: isActorMoviesListLoading} =
+    useQuery(cacheKey, () => getActorMoviesList(actorId), {
       enabled: isEnabled,
       onError: () => {
         Snackbar.show({
@@ -20,8 +18,7 @@ export const useActorMovies = (actorId, isEnabled = false) => {
           },
         });
       },
-    },
-  );
+    });
 
   return {
     actorMoviesList,

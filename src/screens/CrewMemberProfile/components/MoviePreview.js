@@ -63,7 +63,9 @@ export const MoviePreview = ({movies, isLoading, actorId}) => {
     return null;
   }
 
-  const [first, second] = movies;
+  const [first, second] = movies.filter(movie =>
+    Boolean(movie.poster_path || movie.backdrop_path),
+  );
 
   const handleMoviePress = movie => {
     if (movie) {

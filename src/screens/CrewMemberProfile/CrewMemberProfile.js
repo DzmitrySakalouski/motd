@@ -5,6 +5,7 @@ import {View, Image, StyleSheet, Text, ImageBackground} from 'react-native';
 import {Icon} from 'react-native-elements';
 import {ScrollView} from 'react-native-gesture-handler';
 import InAppBrowser from 'react-native-inappbrowser-reborn';
+import {BallIndicator} from 'react-native-indicators';
 import {useSafeAreaFrame} from 'react-native-safe-area-context';
 import Snackbar from 'react-native-snackbar';
 import {COLORS} from '../../contants';
@@ -29,6 +30,7 @@ const styles = StyleSheet.create({
   imgBackgroundContainer: {
     height: '100%',
     width: '100%',
+    // paddingBottom: 10,
   },
   header: {
     overflow: 'visible',
@@ -88,7 +90,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto',
   },
   scroll: {
-    paddingBottom: 30,
+    // paddingBottom: 30,
   },
   placeholder: {
     backgroundColor: COLORS.BACKGROUND_SECONDARY,
@@ -107,11 +109,17 @@ export const CrewMemberProfile = () => {
 
   const {crew} = params;
 
-  const {actorData} = useActorData(crew.id, !!crew);
+  const {actorData, isActorDataLoading} = useActorData(crew.id, !!crew);
   const {actorMoviesList, isActorMoviesListLoading} = useActorMovies(
     crew.id,
     !!crew,
   );
+
+  if (isActorDataLoading) {
+    <View style={styles.loaderContainer}>
+      <BallIndicator size={50} color={COLORS.PRIMARY} />
+    </View>;
+  }
 
   const openIMDB = async () => {
     if (!actorData?.imdb_id) {
@@ -242,6 +250,7 @@ export const CrewMemberProfile = () => {
           isLoading={isActorMoviesListLoading}
           actorId={crew.id}
         />
+        <View height={windowWidth * 0.1} />
       </ScrollView>
     </ImageBackground>
   );

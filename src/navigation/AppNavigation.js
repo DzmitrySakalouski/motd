@@ -93,7 +93,7 @@ export const AppNavigation = () => {
         options={{
           presentation: 'transparentModal',
           headerLeftLabelVisible: false,
-          headerTintColor: COLORS.PRIMARY,
+          headerTintColor: COLORS.SECONDARY,
           headerTitle: '',
           headerLeftContainerStyle: headerStyles,
         }}
