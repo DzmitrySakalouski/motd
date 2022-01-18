@@ -25,7 +25,11 @@ import {useNavigation} from '@react-navigation/native';
 import {YouTubeButton} from '../components/YouTubeButton';
 import Snackbar from 'react-native-snackbar';
 import Config from 'react-native-config';
-import {BannerAd, BannerAdSize} from '@invertase/react-native-google-ads';
+import {
+  BannerAd,
+  BannerAdSize,
+  TestIds,
+} from '@invertase/react-native-google-ads';
 
 const styles = StyleSheet.create({
   frontImageStyle: {
@@ -180,6 +184,11 @@ export const MovieDetailsScreen = () => {
     );
   }
 
+  const adId =
+    Config.ENVIRONMENT === 'PROD'
+      ? Config.BOTTOM_BANNER_DETAILS
+      : TestIds.BANNER;
+
   return (
     <>
       <ScrollView
@@ -222,10 +231,7 @@ export const MovieDetailsScreen = () => {
         </View>
       </ScrollView>
       <View style={styles.banner}>
-        <BannerAd
-          unitId={Config.BOTTOM_BANNER}
-          size={BannerAdSize.ADAPTIVE_BANNER}
-        />
+        <BannerAd unitId={adId} size={BannerAdSize.ADAPTIVE_BANNER} />
       </View>
     </>
   );

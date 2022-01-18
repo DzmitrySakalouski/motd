@@ -93,9 +93,20 @@ export const AppNavigation = () => {
         options={{
           presentation: 'transparentModal',
           headerLeftLabelVisible: false,
-          headerTintColor: COLORS.SECONDARY,
-          headerTitle: '',
+          headerTintColor: COLORS.PRIMARY,
           headerLeftContainerStyle: headerStyles,
+          headerTransparent: false,
+          headerTitle: '',
+          headerStyle: {
+            backgroundColor: 'transparent',
+          },
+          cardStyle: {
+            backgroundColor: COLORS.BACKGROUND_PRIMARY,
+          },
+          headerTitleStyle: {
+            fontFamily: 'Roboto',
+            fontWeight: '300',
+          },
         }}
         name="ActorsMoviesList"
         component={ActorsMoviesList}

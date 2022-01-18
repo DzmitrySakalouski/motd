@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
 });
 
 const adId =
-  Config.ENVIRONMENT === 'PROD' ? Config.BOTTOM_BANNER : TestIds.INTERSTITIAL;
+  Config.ENVIRONMENT === 'PROD' ? Config.BOTTOM_BANNER : TestIds.BANNER;
 
 export const MainMovieScreen = () => {
   console.log(Config.ENVIRONMENT);

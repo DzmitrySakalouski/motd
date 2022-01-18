@@ -109,9 +109,7 @@ const styles = StyleSheet.create({
 });
 
 const adId =
-  Config.ENVIRONMENT === 'PROD'
-    ? Config.BOTTOM_ACTOR_BANNER
-    : TestIds.INTERSTITIAL;
+  Config.ENVIRONMENT === 'PROD' ? Config.BOTTOM_ACTOR_BANNER : TestIds.BANNER;
 
 export const CrewMemberProfile = () => {
   const {params} = useRoute();
@@ -263,6 +261,7 @@ export const CrewMemberProfile = () => {
             movies={actorMoviesList?.cast}
             isLoading={isActorMoviesListLoading}
             actorId={crew.id}
+            actorName={crew.name}
           />
           <View height={windowWidth * 0.1} />
         </ScrollView>

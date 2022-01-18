@@ -4,7 +4,7 @@ import {
   TestIds,
 } from '@invertase/react-native-google-ads';
 import {useNavigation, useRoute} from '@react-navigation/native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, StyleSheet} from 'react-native';
 import Config from 'react-native-config';
 import {ScrollView} from 'react-native-gesture-handler';
@@ -39,15 +39,22 @@ const styles = StyleSheet.create({
 const adId =
   Config.ENVIRONMENT === 'PROD'
     ? Config.BOTTOM_MOVIES_LIST_ACTOR
-    : TestIds.INTERSTITIAL;
+    : TestIds.BANNER;
 
 export const ActorsMoviesList = () => {
   const {params} = useRoute();
-  const {navigate} = useNavigation();
+  const {navigate, setOptions} = useNavigation();
   const {actorMoviesList, isActorMoviesListLoading} = useActorMovies(
     params?.actorId,
   );
   const {width: windowWidth} = useSafeAreaFrame();
+
+  useEffect(() => {
+    if (params?.actorName)
+      setOptions({
+        headerTitle: `${params?.actorName}'s movies`,
+      });
+  }, [params, setOptions]);
 
   const handlePressMovie = movie => {
     navigate('AdditionalMovieDetailsScreen', {movie});

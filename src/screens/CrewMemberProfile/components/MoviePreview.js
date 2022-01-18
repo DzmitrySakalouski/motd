@@ -64,7 +64,7 @@ const interstitial = InterstitialAd.createForAdRequest(adId, {
   keywords: ['fashion', 'clothing'],
 });
 
-export const MoviePreview = ({movies, isLoading, actorId}) => {
+export const MoviePreview = ({movies, isLoading, actorId, actorName}) => {
   const {width: windowWidth} = useSafeAreaFrame();
   const {navigate} = useNavigation();
   const [loaded, setLoaded] = useState(false);
@@ -109,7 +109,7 @@ export const MoviePreview = ({movies, isLoading, actorId}) => {
 
   const handlePressSeeMore = () => {
     adUseHandler(
-      () => navigate('ActorsMoviesList', {actorId}),
+      () => navigate('ActorsMoviesList', {actorId, actorName}),
       interstitial,
       loaded,
     );
