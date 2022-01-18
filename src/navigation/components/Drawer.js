@@ -1,6 +1,6 @@
 import {BlurView} from '@react-native-community/blur';
 import React from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
+import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {Icon} from 'react-native-elements';
 import {useQuery} from 'react-query';
 import {COLORS} from '../../contants';
@@ -19,7 +19,8 @@ const styles = StyleSheet.create({
   },
   text: {
     color: COLORS.PRIMARY,
-    fontFamily: 'Bebas Neue',
+    fontFamily: 'Roboto',
+    fontWeight: '600',
   },
   header: {
     fontSize: 40,
@@ -29,7 +30,7 @@ const styles = StyleSheet.create({
   menuItem: {
     fontSize: 23,
     marginBottom: 40,
-    fontWeight: '700',
+    fontWeight: '100',
     textTransform: 'capitalize',
     marginLeft: 10,
   },
@@ -79,14 +80,18 @@ export const Drawer = () => {
         />
       </View>
       <View style={styles.primaryMenu}>
-        <View style={styles.menuItemContainer}>
+        <TouchableOpacity style={styles.menuItemContainer}>
           <Icon name="local-offer" color={COLORS.PRIMARY} />
           <Text style={[styles.text, styles.menuItem]}>Offers</Text>
-        </View>
-        <View style={styles.menuItemContainer}>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.menuItemContainer}>
+          <Icon name="ad-units" color={COLORS.PRIMARY} />
+          <Text style={[styles.text, styles.menuItem]}>Ads settings</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.menuItemContainer}>
           <Icon name="info" color={COLORS.PRIMARY} />
           <Text style={[styles.text, styles.menuItem]}>About</Text>
-        </View>
+        </TouchableOpacity>
       </View>
     </BlurView>
   );

@@ -1,11 +1,18 @@
+import {
+  AdEventType,
+  InterstitialAd,
+  TestIds,
+} from '@invertase/react-native-google-ads';
 import {useNavigation} from '@react-navigation/native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Image, View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import Config from 'react-native-config';
 import {BallIndicator} from 'react-native-indicators';
 import {useSafeAreaFrame} from 'react-native-safe-area-context';
 import {SharedElement} from 'react-navigation-shared-element';
 import {COLORS} from '../../../contants';
 import {getMovieImage} from '../../../services/mainMovieService/main_movie.service';
+import {adUseHandler} from '../../../utils/ad.util';
 
 const styles = StyleSheet.create({
   container: {
@@ -47,9 +54,36 @@ const styles = StyleSheet.create({
   },
 });
 
+const adId =
+  Config.ENVIRONMENT === 'PROD'
+    ? Config.SHOW_MORE_MOVIES_FULLSCREEN
+    : TestIds.INTERSTITIAL;
+
+const interstitial = InterstitialAd.createForAdRequest(adId, {
+  requestNonPersonalizedAdsOnly: true,
+  keywords: ['fashion', 'clothing'],
+});
+
 export const MoviePreview = ({movies, isLoading, actorId}) => {
   const {width: windowWidth} = useSafeAreaFrame();
   const {navigate} = useNavigation();
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    const eventListener = interstitial.onAdEvent(type => {
+      if (type === AdEventType.LOADED) {
+        setLoaded(true);
+      }
+    });
+
+    // Start loading the interstitial straight away
+    interstitial.load();
+
+    // Unsubscribe from events on unmount
+    return () => {
+      eventListener();
+    };
+  }, []);
 
   if (isLoading) {
     return (
@@ -74,8 +108,13 @@ export const MoviePreview = ({movies, isLoading, actorId}) => {
   };
 
   const handlePressSeeMore = () => {
-    navigate('ActorsMoviesList', {actorId});
+    adUseHandler(
+      () => navigate('ActorsMoviesList', {actorId}),
+      interstitial,
+      loaded,
+    );
   };
+  /* eslint-disable react-native/no-inline-styles */
 
   return (
     <View style={[styles.container, {height: windowWidth * 0.7}]}>

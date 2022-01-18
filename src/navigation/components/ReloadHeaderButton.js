@@ -3,7 +3,6 @@ import {
   InterstitialAd,
   TestIds,
 } from '@invertase/react-native-google-ads';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {useEffect, useState} from 'react';
 import {StyleSheet} from 'react-native';
 import Config from 'react-native-config';
@@ -12,6 +11,7 @@ import Snackbar from 'react-native-snackbar';
 import {useMutation, useQueryClient} from 'react-query';
 import {COLORS} from '../../contants';
 import {updateMovie} from '../../services/mainMovieService/main_movie.service';
+import {adUseHandler} from '../../utils/ad.util';
 
 const adId =
   Config.ENVIRONMENT === 'PROD'
@@ -68,36 +68,9 @@ export const ReloadButton = () => {
   }, []);
 
   // No advert ready to show yet
-  if (!loaded) {
-    return null;
-  }
 
   const handlePress = async () => {
-    try {
-      let showCount = await AsyncStorage.getItem('showAdCount');
-      console.log('90909909 =====>>>>>>', showCount);
-      if (!showCount) {
-        await AsyncStorage.setItem('showAdCount', '0');
-        update();
-
-        return;
-      }
-      if (+showCount !== 0 && +showCount % 10 === 0) {
-        await interstitial.show();
-      }
-      await AsyncStorage.setItem('showAdCount', `${+showCount + 1}`);
-      update();
-    } catch (error) {
-      console.log(error);
-      Snackbar.show({
-        text: 'Oops, there is no IMDB link available',
-        duration: Snackbar.LENGTH_SHORT,
-        action: {
-          text: 'OK',
-          textColor: COLORS.RED,
-        },
-      });
-    }
+    adUseHandler(update, interstitial, loaded);
   };
 
   return (

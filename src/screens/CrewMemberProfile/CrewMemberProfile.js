@@ -1,7 +1,9 @@
+import {BannerAd, BannerAdSize} from '@invertase/react-native-google-ads';
 import {BlurView} from '@react-native-community/blur';
 import {useRoute} from '@react-navigation/native';
 import React from 'react';
 import {View, Image, StyleSheet, Text, ImageBackground} from 'react-native';
+import Config from 'react-native-config';
 import {Icon} from 'react-native-elements';
 import {ScrollView} from 'react-native-gesture-handler';
 import InAppBrowser from 'react-native-inappbrowser-reborn';
@@ -30,7 +32,9 @@ const styles = StyleSheet.create({
   imgBackgroundContainer: {
     height: '100%',
     width: '100%',
-    // paddingBottom: 10,
+  },
+  banner: {
+    width: '100%',
   },
   header: {
     overflow: 'visible',
@@ -152,106 +156,114 @@ export const CrewMemberProfile = () => {
   };
 
   return (
-    <ImageBackground
-      source={{uri: getMovieImage(crew.profile_path)}}
-      style={styles.imgBackgroundContainer}>
-      <BlurView
-        style={styles.blurContainer}
-        blurType="dark"
-        blurAmount={10}
-        reducedTransparencyFallbackColor="white"
-      />
-      <ScrollView
-        bounces={false}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.scroll}>
-        <View style={[styles.header]}>
-          {crew.profile_path ? (
-            <Image
-              source={{uri: getMovieImage(crew.profile_path)}}
-              // resizeMode="cover"
-              style={[
-                styles.actorImage,
-                {width: imageWidth, height: imageHeight},
-              ]}
-              resizeMode="cover"
-              // resizeMethod="scale"
-            />
-          ) : (
-            <View
-              style={[
-                {width: imageWidth, height: imageHeight},
-                styles.placeholder,
-              ]}>
-              <Icon name="theater-comedy" size={90} color={COLORS.PRIMARY} />
-            </View>
-          )}
+    <>
+      <ImageBackground
+        source={{uri: getMovieImage(crew.profile_path)}}
+        style={styles.imgBackgroundContainer}>
+        <BlurView
+          style={styles.blurContainer}
+          blurType="dark"
+          blurAmount={10}
+          reducedTransparencyFallbackColor="white"
+        />
+        <ScrollView
+          bounces={false}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles.scroll}>
+          <View style={[styles.header]}>
+            {crew.profile_path ? (
+              <Image
+                source={{uri: getMovieImage(crew.profile_path)}}
+                // resizeMode="cover"
+                style={[
+                  styles.actorImage,
+                  {width: imageWidth, height: imageHeight},
+                ]}
+                resizeMode="cover"
+                // resizeMethod="scale"
+              />
+            ) : (
+              <View
+                style={[
+                  {width: imageWidth, height: imageHeight},
+                  styles.placeholder,
+                ]}>
+                <Icon name="theater-comedy" size={90} color={COLORS.PRIMARY} />
+              </View>
+            )}
 
-          <View style={[styles.nameTextContainer, {width: nameFontSize}]}>
-            <Text
-              style={[
-                styles.crewName,
-                {
-                  width: imageHeight,
-                  fontSize: nameFontSize,
-                  transform: [
-                    {
-                      translateX: -(imageHeight / 2 - nameFontSize / 2),
-                    },
-                    {
-                      translateY: imageHeight / 2 - nameFontSize / 2,
-                    },
-                    {
-                      rotate: '-90deg',
-                    },
-                  ],
-                },
-              ]}>
-              {crew.name}
-            </Text>
-          </View>
-        </View>
-        <View style={styles.metrics}>
-          <View style={styles.metricsItem}>
-            <Text style={styles.subtitleText}>movies</Text>
-            <Text style={styles.title}>{actorMoviesList?.cast?.length}</Text>
-          </View>
-          <View style={styles.metricsItem}>
-            <Text style={styles.subtitleText}>Popularity</Text>
-            <Text style={styles.title}>{actorData?.popularity}</Text>
-          </View>
-          <View style={styles.metricsItem}>
-            <Text style={styles.subtitleText}>Imdb</Text>
-            <Icon
-              name="link"
-              onPress={openIMDB}
-              size={54}
-              color={COLORS.PRIMARY}
-            />
-          </View>
-        </View>
-        <View style={styles.bioContainer}>
-          {actorData?.biography ? (
-            <View>
-              <Text style={[styles.subtitleText]}>Biography:</Text>
-              <Text style={styles.bioText}>{actorData.biography}</Text>
-            </View>
-          ) : (
-            <View style={styles.noBioBanner}>
-              <Icon name="error-outline" color={COLORS.PRIMARY} size={34} />
-              <Text style={[styles.subtitleText, styles.noBioText]}>
-                No biography available
+            <View style={[styles.nameTextContainer, {width: nameFontSize}]}>
+              <Text
+                style={[
+                  styles.crewName,
+                  {
+                    width: imageHeight,
+                    fontSize: nameFontSize,
+                    transform: [
+                      {
+                        translateX: -(imageHeight / 2 - nameFontSize / 2),
+                      },
+                      {
+                        translateY: imageHeight / 2 - nameFontSize / 2,
+                      },
+                      {
+                        rotate: '-90deg',
+                      },
+                    ],
+                  },
+                ]}>
+                {crew.name}
               </Text>
             </View>
-          )}
-        </View>
-        <MoviePreview
-          movies={actorMoviesList?.cast}
-          isLoading={isActorMoviesListLoading}
-          actorId={crew.id}
+          </View>
+          <View style={styles.metrics}>
+            <View style={styles.metricsItem}>
+              <Text style={styles.subtitleText}>movies</Text>
+              <Text style={styles.title}>{actorMoviesList?.cast?.length}</Text>
+            </View>
+            <View style={styles.metricsItem}>
+              <Text style={styles.subtitleText}>Popularity</Text>
+              <Text style={styles.title}>{actorData?.popularity}</Text>
+            </View>
+            <View style={styles.metricsItem}>
+              <Text style={styles.subtitleText}>Imdb</Text>
+              <Icon
+                name="link"
+                onPress={openIMDB}
+                size={54}
+                color={COLORS.PRIMARY}
+              />
+            </View>
+          </View>
+          <View style={styles.bioContainer}>
+            {actorData?.biography ? (
+              <View>
+                <Text style={[styles.subtitleText]}>Biography:</Text>
+                <Text style={styles.bioText}>{actorData.biography}</Text>
+              </View>
+            ) : (
+              <View style={styles.noBioBanner}>
+                <Icon name="error-outline" color={COLORS.PRIMARY} size={34} />
+                <Text style={[styles.subtitleText, styles.noBioText]}>
+                  No biography available
+                </Text>
+              </View>
+            )}
+          </View>
+          <MoviePreview
+            movies={actorMoviesList?.cast}
+            isLoading={isActorMoviesListLoading}
+            actorId={crew.id}
+          />
+          <View height={windowWidth * 0.1} />
+        </ScrollView>
+      </ImageBackground>
+      <View style={styles.banner}>
+        <BannerAd
+          unitId={Config.BOTTOM_ACTOR_BANNER}
+          size={BannerAdSize.ADAPTIVE_BANNER}
         />
-        <View height={windowWidth * 0.1} />
-      </ScrollView>
-    </ImageBackground>
+      </View>
+    </>
   );
 };
