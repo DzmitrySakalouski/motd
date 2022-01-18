@@ -71,9 +71,9 @@ export const MainMovieScreen = () => {
     onError: () => {
       Snackbar.show({
         text: 'Oops, server error occured =(',
-        duration: Snackbar.LENGTH_INDEFINITE,
+        duration: Snackbar.LENGTH_SHORT,
         action: {
-          text: 'Ok',
+          text: 'OK',
           textColor: COLORS.RED,
         },
       });

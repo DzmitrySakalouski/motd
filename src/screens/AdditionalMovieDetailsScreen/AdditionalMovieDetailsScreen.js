@@ -123,9 +123,9 @@ export const AdditionalMovieDetailsScreen = () => {
     if (!video?.results?.length) {
       Snackbar.show({
         text: 'Oops, there is no trailer for this movie =(',
-        duration: Snackbar.LENGTH_INDEFINITE,
+        duration: Snackbar.LENGTH_SHORT,
         action: {
-          text: 'Ok',
+          text: 'OK',
           textColor: COLORS.RED,
         },
       });
