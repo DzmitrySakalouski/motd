@@ -129,8 +129,9 @@ export const MovieDetailsScreen = () => {
   }));
 
   const openTrailer = async () => {
-    const url = buildTrailerUrl(movie.video);
-    if (url) {
+    try {
+      const url = buildTrailerUrl(movie.video);
+
       await InAppBrowser.open(url, {
         dismissButtonStyle: 'cancel',
         preferredBarTintColor: COLORS.BACKGROUND_PRIMARY,
@@ -141,6 +142,15 @@ export const MovieDetailsScreen = () => {
         modalTransitionStyle: 'coverVertical',
         modalEnabled: true,
         enableBarCollapsing: false,
+      });
+    } catch {
+      Snackbar.show({
+        text: 'Oops, cannot find trailer =(',
+        duration: Snackbar.LENGTH_SHORT,
+        action: {
+          text: 'OK',
+          textColor: COLORS.RED,
+        },
       });
     }
   };
@@ -166,7 +176,10 @@ export const MovieDetailsScreen = () => {
   }
 
   return (
-    <ScrollView bounces={false} contentContainerStyle={styles.container}>
+    <ScrollView
+      bounces={false}
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={styles.container}>
       <View style={styles.header}>
         <ImageBackground source={{uri: movieImage}} style={styles.bgPoster} />
         <View style={styles.frontImageStyleContainer}>
@@ -188,6 +201,7 @@ export const MovieDetailsScreen = () => {
           isLoading={isLoadingCrew}
           onItemPress={crew => handlePressCrew(crew)}
           CaroucelItem={CrewCarouselItem}
+          type="cast"
         />
         <HorizontalCarousel
           items={recommendedData?.results}
@@ -197,6 +211,7 @@ export const MovieDetailsScreen = () => {
             handlePressRecomended(recomendedMovie)
           }
           CaroucelItem={MovieCaroucelItem}
+          type="movie"
         />
       </View>
     </ScrollView>

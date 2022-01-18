@@ -56,6 +56,9 @@ const styles = StyleSheet.create({
   menuItemContainer: {
     flexDirection: 'row',
   },
+  movieTitle: {
+    fontFamily: 'Roboto',
+  },
 });
 
 export const Drawer = () => {
@@ -69,9 +72,7 @@ export const Drawer = () => {
       reducedTransparencyFallbackColor="white">
       <View>
         <Text style={[styles.text, styles.header]}>Movie of the day</Text>
-        <Text style={[styles.text, {fontFamily: 'Roboto'}]}>
-          {movie?.title}
-        </Text>
+        <Text style={[styles.text, styles.movieTitle]}>{movie?.title}</Text>
         <Image
           source={{uri: getMovieImage(movie?.poster_path)}}
           style={styles.smallImg}
@@ -79,7 +80,7 @@ export const Drawer = () => {
       </View>
       <View style={styles.primaryMenu}>
         <View style={styles.menuItemContainer}>
-          <Icon name="ad-units" color={COLORS.PRIMARY} />
+          <Icon name="local-offer" color={COLORS.PRIMARY} />
           <Text style={[styles.text, styles.menuItem]}>Offers</Text>
         </View>
         <View style={styles.menuItemContainer}>

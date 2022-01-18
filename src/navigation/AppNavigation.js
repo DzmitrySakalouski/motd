@@ -12,6 +12,7 @@ import {ActorsMoviesList} from '../screens/ActorsMovies/ActorsMoviesList';
 import {Icon} from 'react-native-elements';
 import {TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {ReloadButton} from './components/ReloadHeaderButton';
 
 const AppStack = createSharedElementStackNavigator();
 
@@ -51,6 +52,7 @@ export const AppNavigation = () => {
         options={{
           ...detailsRouteOptions,
           headerLeft: () => <MenuHeaderButton />,
+          headerRight: () => <ReloadButton />,
         }}
         component={MainMovieScreen}
       />
@@ -59,6 +61,7 @@ export const AppNavigation = () => {
         options={{
           ...detailsRouteOptions,
           headerLeft: () => <MenuHeaderButton />,
+          headerRight: () => <ReloadButton />,
         }}
         component={MovieDetailsScreen}
         sharedElements={() => {

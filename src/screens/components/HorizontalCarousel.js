@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     width: '100%',
     marginTop: 20,
     height: 280,
-    marginBottom: 20,
+    marginBottom: 50,
   },
   text: {
     color: COLORS.PRIMARY,
@@ -35,8 +35,9 @@ export const HorizontalCarousel = ({
   onItemPress,
   isLoading,
   CaroucelItem,
+  type = '',
 }) => {
-  if (!items) {
+  if (!items?.length) {
     return null;
   }
 
@@ -47,11 +48,14 @@ export const HorizontalCarousel = ({
         {isLoading ? (
           <Text style={styles.text}>...is loading</Text>
         ) : (
-          <ScrollView horizontal style={styles.scrollContainer}>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={styles.scrollContainer}>
             {items.map(movieItem => (
               <CaroucelItem
                 item={movieItem}
-                key={movieItem.id}
+                key={type + movieItem.id}
                 onPress={() => onItemPress(movieItem)}
               />
             ))}
