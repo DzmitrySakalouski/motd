@@ -6,6 +6,7 @@ import {Icon} from 'react-native-elements';
 import {ScrollView} from 'react-native-gesture-handler';
 import InAppBrowser from 'react-native-inappbrowser-reborn';
 import {useSafeAreaFrame} from 'react-native-safe-area-context';
+import Snackbar from 'react-native-snackbar';
 import {COLORS} from '../../contants';
 import {buildIMDBLink} from '../../services/actorService/actor.service';
 import {getMovieImage} from '../../services/mainMovieService/main_movie.service';
@@ -113,6 +114,19 @@ export const CrewMemberProfile = () => {
   );
 
   const openIMDB = async () => {
+    if (!actorData?.imdb_id) {
+      Snackbar.show({
+        text: 'Oops, there is no IMDB link available',
+        duration: Snackbar.LENGTH_SHORT,
+        action: {
+          text: 'OK',
+          textColor: COLORS.RED,
+        },
+      });
+
+      return;
+    }
+
     const url = buildIMDBLink(actorData?.imdb_id);
     if (url) {
       await InAppBrowser.open(url, {
