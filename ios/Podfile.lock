@@ -439,6 +439,8 @@ PODS:
     - React-RCTImage
   - RNSharedElement (0.8.3):
     - React-Core
+  - RNSnackbar (2.4.0):
+    - React-Core
   - RNVectorIcons (9.0.0):
     - React-Core
   - SocketRocket (0.6.0)
@@ -510,6 +512,7 @@ DEPENDENCIES:
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSharedElement (from `../node_modules/react-native-shared-element`)
+  - RNSnackbar (from `../node_modules/react-native-snackbar`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -619,6 +622,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-screens"
   RNSharedElement:
     :path: "../node_modules/react-native-shared-element"
+  RNSnackbar:
+    :path: "../node_modules/react-native-snackbar"
   RNVectorIcons:
     :path: "../node_modules/react-native-vector-icons"
   Yoga:
@@ -685,6 +690,7 @@ SPEC CHECKSUMS:
   RNReanimated: 569c269480a76e39196aa17a5df08ef1561db5ff
   RNScreens: 03ba504f8c98607ad1f07808e71040e0afa335ec
   RNSharedElement: 381b5e33366513cc3f449f2dc3a42c5df0f54021
+  RNSnackbar: be3333a21a453ccc272f41a8add5a71f7d44dfcd
   RNVectorIcons: 4143ba35feebab8fdbe6bc43d1e776b393d47ac8
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
   Yoga: 32a18c0e845e185f4a2a66ec76e1fd1f958f22fa

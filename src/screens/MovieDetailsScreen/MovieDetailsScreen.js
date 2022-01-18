@@ -23,6 +23,7 @@ import InAppBrowser from 'react-native-inappbrowser-reborn';
 import {BallIndicator} from 'react-native-indicators';
 import {useNavigation} from '@react-navigation/native';
 import {YouTubeButton} from '../components/YouTubeButton';
+import Snackbar from 'react-native-snackbar';
 
 const styles = StyleSheet.create({
   frontImageStyle: {
@@ -72,18 +73,54 @@ export const MovieDetailsScreen = () => {
     data: movie,
     isFetching,
     isFetched: isMovieFetched,
-  } = useQuery('primary_movie', {enabled: false});
+  } = useQuery('primary_movie', {
+    enabled: false,
+    onError: () => {
+      Snackbar.show({
+        text: 'Oops, server error occured =(',
+        duration: Snackbar.LENGTH_INDEFINITE,
+        action: {
+          text: 'Ok',
+          textColor: COLORS.RED,
+        },
+      });
+    },
+  });
   const {navigate} = useNavigation();
   const movieImage = useMemo(() => getMovieImage(movie?.poster_path), [movie]);
   const {data: recommendedData, isLoading: isLoadingRecommended} = useQuery(
     ['recommended', isMovieFetched, movie],
     () => getRecommendedMovies(movie.id),
-    {enabled: isMovieFetched},
+    {
+      enabled: isMovieFetched,
+      onError: () => {
+        Snackbar.show({
+          text: 'Oops, server error occured =(',
+          duration: Snackbar.LENGTH_INDEFINITE,
+          action: {
+            text: 'Ok',
+            textColor: COLORS.RED,
+          },
+        });
+      },
+    },
   );
   const {data: crewData, isLoading: isLoadingCrew} = useQuery(
     ['crew', isMovieFetched, movie],
     () => getCast(movie.id),
-    {enabled: isMovieFetched},
+    {
+      enabled: isMovieFetched,
+      onError: () => {
+        Snackbar.show({
+          text: 'Oops, server error occured =(',
+          duration: Snackbar.LENGTH_INDEFINITE,
+          action: {
+            text: 'Ok',
+            textColor: COLORS.RED,
+          },
+        });
+      },
+    },
   );
 
   const borderRadiusValue = useSharedValue(15);

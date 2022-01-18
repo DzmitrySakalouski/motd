@@ -7,7 +7,7 @@ import {getMovieImage} from '../../../services/mainMovieService/main_movie.servi
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: COLORS.GOLD,
+    backgroundColor: COLORS.BACKGROUND_PRIMARY,
   },
 });
 
@@ -15,8 +15,6 @@ export const ActorsMoviesListItem = ({movie, onItemPress}) => {
   const {width: windowWidth} = useSafeAreaFrame();
 
   if (!movie.poster_path && !movie.backdrop_path) {
-    console.log('nonono', movie);
-
     return null;
   }
 

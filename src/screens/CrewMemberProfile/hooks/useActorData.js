@@ -1,4 +1,6 @@
+import Snackbar from 'react-native-snackbar';
 import {useQuery} from 'react-query';
+import {COLORS} from '../../../contants';
 import {getActorDataRequest} from '../../../services/actorService/actor.service';
 
 export const useActorData = (actorId, isEnabled = false) => {
@@ -6,7 +8,19 @@ export const useActorData = (actorId, isEnabled = false) => {
   const {data: actorData, isLoading: isActorDataLoading} = useQuery(
     cacheKey,
     () => getActorDataRequest(actorId),
-    {enabled: isEnabled},
+    {
+      enabled: isEnabled,
+      onError: () => {
+        Snackbar.show({
+          text: 'Oops, server error occured =(',
+          duration: Snackbar.LENGTH_INDEFINITE,
+          action: {
+            text: 'Ok',
+            textColor: COLORS.RED,
+          },
+        });
+      },
+    },
   );
 
   return {

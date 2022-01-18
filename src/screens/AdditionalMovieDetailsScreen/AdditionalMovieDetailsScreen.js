@@ -21,6 +21,7 @@ import {
 import {snapPoint} from 'react-native-redash';
 import {YouTubeButton} from '../components/YouTubeButton';
 import InAppBrowser from 'react-native-inappbrowser-reborn';
+import Snackbar from 'react-native-snackbar';
 
 const styles = StyleSheet.create({
   overviewText: {
@@ -119,6 +120,18 @@ export const AdditionalMovieDetailsScreen = () => {
 
   const openTrailer = async () => {
     const video = await getMovieVideo(movie.id);
+    if (!video?.results?.length) {
+      Snackbar.show({
+        text: 'Oops, there is no trailer for this movie =(',
+        duration: Snackbar.LENGTH_INDEFINITE,
+        action: {
+          text: 'Ok',
+          textColor: COLORS.RED,
+        },
+      });
+
+      return;
+    }
     const url = buildTrailerUrl(video.results[0]);
     if (url) {
       await InAppBrowser.open(url, {

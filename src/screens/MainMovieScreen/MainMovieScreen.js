@@ -14,6 +14,7 @@ import {
 } from '../../services/mainMovieService/main_movie.service';
 import {BannerAd, BannerAdSize} from '@invertase/react-native-google-ads';
 import Config from 'react-native-config';
+import Snackbar from 'react-native-snackbar';
 
 const styles = StyleSheet.create({
   container: {
@@ -66,7 +67,18 @@ export const MainMovieScreen = () => {
     isFetching,
     isError,
     data: movieData,
-  } = useQuery('primary_movie', presentMovie);
+  } = useQuery('primary_movie', presentMovie, {
+    onError: () => {
+      Snackbar.show({
+        text: 'Oops, server error occured =(',
+        duration: Snackbar.LENGTH_INDEFINITE,
+        action: {
+          text: 'Ok',
+          textColor: COLORS.RED,
+        },
+      });
+    },
+  });
   const {navigate} = useNavigation();
 
   const handleNavigateToDetails = useCallback(() => {

@@ -9,6 +9,9 @@ import {AdditionalMovieDetailsScreen} from '../screens/AdditionalMovieDetailsScr
 import {CrewMemberProfile} from '../screens/CrewMemberProfile/CrewMemberProfile';
 import {COLORS} from '../contants';
 import {ActorsMoviesList} from '../screens/ActorsMovies/ActorsMoviesList';
+import {Icon} from 'react-native-elements';
+import {TouchableOpacity} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 const AppStack = createSharedElementStackNavigator();
 
@@ -20,10 +23,24 @@ const appScreenOptions = {
   },
 };
 
+const headerStyles = {
+  marginLeft: 10,
+};
+
 const detailsRouteOptions = {
-  headerLeft: () => null,
   gestureEnabled: false,
-  headerShown: false,
+  headerTitle: '',
+};
+const MenuHeaderButton = () => {
+  const navigation = useNavigation();
+
+  const onIconPress = () => navigation.openDrawer();
+
+  return (
+    <TouchableOpacity onPress={onIconPress} style={headerStyles}>
+      <Icon name="menu" size={30} color={COLORS.PRIMARY} />
+    </TouchableOpacity>
+  );
 };
 
 export const AppNavigation = () => {
@@ -31,12 +48,18 @@ export const AppNavigation = () => {
     <AppStack.Navigator screenOptions={appScreenOptions} mode="modal">
       <AppStack.Screen
         name="MainMovieScreen"
-        options={{...detailsRouteOptions}}
+        options={{
+          ...detailsRouteOptions,
+          headerLeft: () => <MenuHeaderButton />,
+        }}
         component={MainMovieScreen}
       />
       <AppStack.Screen
         name="MovieDetailsScreen"
-        options={{...detailsRouteOptions}}
+        options={{
+          ...detailsRouteOptions,
+          headerLeft: () => <MenuHeaderButton />,
+        }}
         component={MovieDetailsScreen}
         sharedElements={() => {
           return ['movie_poster_main'];
@@ -58,6 +81,7 @@ export const AppNavigation = () => {
           headerLeftLabelVisible: false,
           headerTintColor: COLORS.PRIMARY,
           headerTitle: '',
+          headerLeftContainerStyle: headerStyles,
         }}
         name="CrewMemberProfile"
         component={CrewMemberProfile}
@@ -68,6 +92,7 @@ export const AppNavigation = () => {
           headerLeftLabelVisible: false,
           headerTintColor: COLORS.PRIMARY,
           headerTitle: '',
+          headerLeftContainerStyle: headerStyles,
         }}
         name="ActorsMoviesList"
         component={ActorsMoviesList}

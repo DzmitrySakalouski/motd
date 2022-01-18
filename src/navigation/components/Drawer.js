@@ -1,13 +1,10 @@
 import {BlurView} from '@react-native-community/blur';
 import React from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
-import {Switch, Icon} from 'react-native-elements';
+import {Icon} from 'react-native-elements';
 import {useQuery} from 'react-query';
 import {COLORS} from '../../contants';
-import {
-  configureMainMovie,
-  getMovieImage,
-} from '../../services/mainMovieService/main_movie.service';
+import {getMovieImage} from '../../services/mainMovieService/main_movie.service';
 
 const styles = StyleSheet.create({
   container: {
@@ -81,10 +78,9 @@ export const Drawer = () => {
         />
       </View>
       <View style={styles.primaryMenu}>
-        {/* TODO: custom search item */}
         <View style={styles.menuItemContainer}>
           <Icon name="ad-units" color={COLORS.PRIMARY} />
-          <Text style={[styles.text, styles.menuItem]}>Ads settings</Text>
+          <Text style={[styles.text, styles.menuItem]}>Offers</Text>
         </View>
         <View style={styles.menuItemContainer}>
           <Icon name="info" color={COLORS.PRIMARY} />

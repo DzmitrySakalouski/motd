@@ -3,36 +3,12 @@ import {axiosInstance} from '../../utils/axios.util';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import moment from 'moment';
 
-export const configureMainMovie = async () => {
-  const randomPage = Math.floor(Math.random() * 500);
-
-  const randomPageMovies = await axiosInstance.get('/movie/popular', {
-    params: {page: randomPage},
-  });
-
-  if (randomPageMovies?.results?.length) {
-    const randomMovieIndexFromRange = Math.floor(
-      Math.random() * randomPageMovies.results.length,
-    );
-    const movieToDisplay = randomPageMovies.results[randomMovieIndexFromRange];
-    const video = await axiosInstance.get(`/movie/${movieToDisplay.id}/videos`);
-    const movie = await getMovieDetails(movieToDisplay.id);
-    movie.video = video.results[0];
-
-    return movie;
-  }
-
-  return null;
-};
-
 export const presentMovie = async () => {
   const currentDate = moment().format('MM_dd_YYYY');
   const keys = await AsyncStorage.getAllKeys();
 
   if (keys.includes(currentDate)) {
-    console.log('includes');
     const movie = await fetchSavedMovie(currentDate);
-    console.log('includes', movie);
 
     return movie;
   }
@@ -41,67 +17,100 @@ export const presentMovie = async () => {
 };
 
 export const fetchSavedMovie = async dateStringKey => {
-  const savedMovie = await AsyncStorage.getItem(dateStringKey);
+  try {
+    const savedMovie = await AsyncStorage.getItem(dateStringKey);
 
-  return JSON.parse(savedMovie);
+    return JSON.parse(savedMovie);
+  } catch (error) {
+    return error;
+  }
 };
 
 export const saveNewMovie = async movie => {
-  const currentDate = moment().format('MM_dd_YYYY');
-  const movieString = JSON.stringify(movie);
+  try {
+    const currentDate = moment().format('MM_dd_YYYY');
+    const movieString = JSON.stringify(movie);
 
-  return await AsyncStorage.setItem(currentDate, movieString);
+    return await AsyncStorage.setItem(currentDate, movieString);
+  } catch (error) {
+    return error;
+  }
 };
 
 export const updateMovie = async () => {
-  const movie = await fetchMovie();
-  await saveNewMovie(movie);
+  try {
+    const movie = await fetchMovie();
+    await saveNewMovie(movie);
 
-  return movie;
+    return movie;
+  } catch (error) {
+    return error;
+  }
 };
 
 export const fetchMovie = async () => {
-  const randomPage = Math.floor(Math.random() * 500);
+  try {
+    const randomPage = Math.floor(Math.random() * 500);
 
-  const randomPageMovies = await axiosInstance.get('/movie/popular', {
-    params: {page: randomPage},
-  });
+    const randomPageMovies = await axiosInstance.get('/movie/popular', {
+      params: {page: randomPage},
+    });
 
-  if (randomPageMovies?.results?.length) {
-    const randomMovieIndexFromRange = Math.floor(
-      Math.random() * randomPageMovies.results.length,
-    );
-    const movieToDisplay = randomPageMovies.results[randomMovieIndexFromRange];
-    const video = await getMovieVideo(movieToDisplay.id);
-    const movie = await getMovieDetails(movieToDisplay.id);
-    movie.video = video.results[0];
+    if (randomPageMovies?.results?.length) {
+      const randomMovieIndexFromRange = Math.floor(
+        Math.random() * randomPageMovies.results.length,
+      );
+      const movieToDisplay =
+        randomPageMovies.results[randomMovieIndexFromRange];
+      const video = await getMovieVideo(movieToDisplay.id);
+      const movie = await getMovieDetails(movieToDisplay.id);
+      movie.video = video.results[0];
 
-    return movie;
+      return movie;
+    }
+
+    return null;
+  } catch (error) {
+    return error;
   }
-
-  return null;
 };
 
 const getMovieDetails = async id => {
-  const data = await axiosInstance.get(`/movie/${id}`);
+  try {
+    const data = await axiosInstance.get(`/movie/${id}`);
 
-  return data;
+    return data;
+  } catch (error) {
+    return error;
+  }
 };
 
 export const getMovieVideo = async id => {
-  const data = await axiosInstance.get(`/movie/${id}/videos`);
+  try {
+    const data = await axiosInstance.get(`/movie/${id}/videos`);
 
-  return data;
+    return data;
+  } catch (error) {
+    return error;
+  }
 };
 
 export const getMovieImage = path => `${IMAGE_BASE_URL}${path}`;
 
 export const getCast = async movieId => {
-  return await axiosInstance.get(`/movie/${movieId}/credits`);
+  try {
+    return await axiosInstance.get(`/movie/${movieId}/credits`);
+  } catch (error) {
+    return error;
+  }
 };
 
 export const getRecommendedMovies = async id => {
-  return await axiosInstance.get(`/movie/${id}/recommendations`);
+  try {
+    return await axiosInstance.get(`/movie/${id}/recommendations`);
+  } catch (error) {
+    return error;
+  }
 };
 
 export const buildTrailerUrl = video => {
