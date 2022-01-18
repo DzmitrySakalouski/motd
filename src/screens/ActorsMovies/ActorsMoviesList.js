@@ -31,6 +31,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLORS.BACKGROUND_PRIMARY,
   },
+  banner: {
+    width: '100%',
+  },
 });
 
 const adId =

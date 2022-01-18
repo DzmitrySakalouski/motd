@@ -70,6 +70,7 @@ const adId =
   Config.ENVIRONMENT === 'PROD' ? Config.BOTTOM_BANNER : TestIds.INTERSTITIAL;
 
 export const MainMovieScreen = () => {
+  console.log(Config.ENVIRONMENT);
   const {
     isFetching,
     isError,
