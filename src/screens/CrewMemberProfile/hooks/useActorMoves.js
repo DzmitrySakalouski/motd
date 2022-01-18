@@ -3,7 +3,7 @@ import {getActorMoviesList} from '../../../services/actorService/actor.service';
 
 export const useActorMovies = (actorId, isEnabled = false) => {
   const cacheKey = 'actorMovies';
-  const {data: actorMoviesList, isLoading: isActorMoviesList} = useQuery(
+  const {data: actorMoviesList, isLoading: isActorMoviesListLoading} = useQuery(
     cacheKey,
     () => getActorMoviesList(actorId),
     {enabled: isEnabled},
@@ -11,6 +11,6 @@ export const useActorMovies = (actorId, isEnabled = false) => {
 
   return {
     actorMoviesList,
-    isActorMoviesList,
+    isActorMoviesListLoading,
   };
 };

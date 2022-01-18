@@ -107,7 +107,10 @@ export const CrewMemberProfile = () => {
   const {crew} = params;
 
   const {actorData} = useActorData(crew.id, !!crew);
-  const {actorMoviesList} = useActorMovies(crew.id, !!crew);
+  const {actorMoviesList, isActorMoviesListLoading} = useActorMovies(
+    crew.id,
+    !!crew,
+  );
   console.log(actorMoviesList?.cast[0]);
 
   const openIMDB = async () => {
@@ -221,7 +224,10 @@ export const CrewMemberProfile = () => {
             </View>
           )}
         </View>
-        <MoviePreview movies={actorMoviesList?.cast} />
+        <MoviePreview
+          movies={actorMoviesList?.cast}
+          isLoading={isActorMoviesListLoading}
+        />
       </ScrollView>
     </ImageBackground>
   );

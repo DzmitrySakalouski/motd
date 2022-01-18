@@ -1,5 +1,6 @@
 import React from 'react';
 import {Image, View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {BallIndicator} from 'react-native-indicators';
 import {useSafeAreaFrame} from 'react-native-safe-area-context';
 import {COLORS} from '../../../contants';
 import {getMovieImage} from '../../../services/mainMovieService/main_movie.service';
@@ -37,10 +38,22 @@ const styles = StyleSheet.create({
     fontSize: 22,
     color: COLORS.PRIMARY,
   },
+  loader: {
+    backgroundColor: COLORS.BACKGROUND_PRIMARY,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
-export const MoviePreview = ({movies}) => {
+export const MoviePreview = ({movies, isLoading}) => {
   const {width: windowWidth} = useSafeAreaFrame();
+  if (isLoading) {
+    return (
+      <View style={[styles.loader, {width: windowWidth, height: windowWidth}]}>
+        <BallIndicator size={50} color={COLORS.PRIMARY} />
+      </View>
+    );
+  }
   if (!movies?.length) {
     return null;
   }

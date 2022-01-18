@@ -123,7 +123,7 @@ export const MovieDetailsScreen = () => {
   if (isFetching) {
     return (
       <View style={styles.loaderContainer}>
-        <BallIndicator size={50} color="white" />
+        <BallIndicator size={50} color={COLORS.PRIMARY} />
       </View>
     );
   }
