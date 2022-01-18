@@ -1,6 +1,12 @@
+import {
+  BannerAd,
+  BannerAdSize,
+  TestIds,
+} from '@invertase/react-native-google-ads';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
+import Config from 'react-native-config';
 import {ScrollView} from 'react-native-gesture-handler';
 import {BallIndicator} from 'react-native-indicators';
 import {useSafeAreaFrame} from 'react-native-safe-area-context';
@@ -26,6 +32,11 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.BACKGROUND_PRIMARY,
   },
 });
+
+const adId =
+  Config.ENVIRONMENT === 'PROD'
+    ? Config.BOTTOM_MOVIES_LIST_ACTOR
+    : TestIds.INTERSTITIAL;
 
 export const ActorsMoviesList = () => {
   const {params} = useRoute();
@@ -67,6 +78,9 @@ export const ActorsMoviesList = () => {
           )}
         </View>
       </ScrollView>
+      <View style={styles.banner}>
+        <BannerAd unitId={adId} size={BannerAdSize.ADAPTIVE_BANNER} />
+      </View>
     </View>
   );
 };
